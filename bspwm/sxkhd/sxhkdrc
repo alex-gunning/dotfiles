@@ -433,7 +433,7 @@ super + j
     bspc desktop -f prev
 
 #Cycle desktop right
-super + ;
+super + semicolon
     bspc desktop -f next
 
 #################################################################
