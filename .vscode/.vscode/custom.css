@@ -1,0 +1,9 @@
+/* Custom CSS LOADER */
+
+.editor-actions {
+    display: none !important;
+}
+
+.monaco-toolbar {
+    display: none !important;
+}
