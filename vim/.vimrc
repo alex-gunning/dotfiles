@@ -31,14 +31,18 @@ call vundle#end()            " required
 set tabstop=2
 set expandtab
 syntax on
-noremap ; l
-noremap l k
-noremap k j
-noremap j h
-noremap " :
-noremap h ;
-nmap L 5l
-nmap K 5k
+nnoremap j h
+nnoremap k j
+nnoremap l k
+nnoremap ; l
+nnoremap K 5j
+nnoremap L 5k
+vnoremap j h
+vnoremap k j
+vnoremap l k
+vnoremap ; l
+vnoremap K 5j
+vnoremap L 5k
 set number
 set laststatus=2
 set noshowmode
