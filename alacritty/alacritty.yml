@@ -1,0 +1,17 @@
+background_opacity: 0.8
+font:
+ normal:
+   family: Source Code Pro
+   style: Regular
+
+ bold:
+   family: Source Code Pro
+   style: Bold
+   
+ italic:
+   family: Source Code Pro
+   style: Italic
+ size: 9
+
+x: 5
+y: 5
