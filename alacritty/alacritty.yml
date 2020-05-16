@@ -13,5 +13,6 @@ font:
    style: Italic
  size: 9
 
-x: 5
-y: 5
+padding:
+  x: 5
+  y: 5
