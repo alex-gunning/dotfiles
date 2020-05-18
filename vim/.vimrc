@@ -35,10 +35,14 @@ noremap ; l
 noremap l k
 noremap k j
 noremap j h
-noremap " :
-noremap h ;
-nmap L 5l
-nmap K 5k
+noremap L 5k
+noremap K 5j
+vnoremap ; l
+vnoremap l k
+vnoremap k j
+vnoremap j h
+vnoremap L 5k
+vnoremap K 5j
 set number
 set laststatus=2
 set noshowmode
