@@ -7,3 +7,4 @@ set -gx PATH ~/.linuxbrew/bin $PATH
 starship init fish | source
 alias calc="insect"
 alias sysinfo="neofetch"
+alias p="git pull -r"
