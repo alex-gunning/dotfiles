@@ -1,5 +1,6 @@
 [kubernetes]
 symbol = "☸  "
+style = "bold italic dimmed green"
 disabled = false
 
 [kubernetes.context_aliases]
