@@ -10,6 +10,9 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'  
 Plugin 'liuchengxu/vim-clap'
 Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'PeterRincker/vim-argumentative'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -37,12 +40,14 @@ noremap k j
 noremap j h
 noremap L 5k
 noremap K 5j
+noremap ' ;
 vnoremap ; l
 vnoremap l k
 vnoremap k j
 vnoremap j h
 vnoremap L 5k
 vnoremap K 5j
+vnoremap ' ;
 set number
 set laststatus=2
 set noshowmode
