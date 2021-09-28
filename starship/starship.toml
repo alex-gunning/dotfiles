@@ -4,18 +4,12 @@ style = "bold italic yellow"
 disabled = false
 
 [kubernetes.context_aliases]
-"arn:aws:eks:ap-south-1:031330673814:cluster/dev-ap-south-1-eks" = "EKSv1 ap-south-dev"
-"arn:aws:eks:ap-south-1:796835670434:cluster/staging-ap-south-1-eks" = "EKSv1 ap-south-staging"
-"arn:aws:eks:ap-south-1:232889591658:cluster/prod-ap-south-1-eks" = "EKSv1 ap-south-prod"
-"arn:aws:eks:eu-west-1:328632723344:cluster/dev-eu-west-1-eks" = "EKSv1 eu-west-dev"
-"arn:aws:eks:eu-west-1:444377790215:cluster/staging-eu-west-1-eks" = "EKSv1 eu-west-staging"
-"arn:aws:eks:eu-west-1:593794845141:cluster/prod-eu-west-1-eks" = "EKSv1 eu-west-prod"
-"arn:aws:eks:eu-west-1:444377790215:cluster/staging-eu-west-1" = "EKSv2 eu-west-staging"
-"arn:aws:eks:eu-west-1:328632723344:cluster/dev-eu-west-1" = "EKSv2 eu-west-dev"
-"arn:aws:eks:eu-west-1:593794845141:cluster/production-eu-west-1" = "EKSv2 eu-west-prod"
-"arn:aws:eks:eu-west-1:328632723344:cluster/dev-eu-nov20" = "EKSv2.1 eu-west-dev"
-"arn:aws:eks:eu-west-1:444377790215:cluster/staging-eu-nov20" = "EKSv2.1 eu-west-staging"
-"arn:aws:eks:eu-west-1:593794845141:cluster/production-eu-nov20" = "EKSv2.1 eu-west-prod"
+"eu-staging-staging-eu-nov20-EksUserGroupRbac" = "EKSv2.1 eu-west-staging"
+"eu-dev-dev-eu-nov20-EksUserGroupRbac" = "EKSv2.1 eu-west-dev"
+"eu-prod-production-eu-nov20-EksUserGroupRbac" = "EKSv2.1 eu-west-prod"
+"eu-dev-dev-eu-jul21-EksUserGroupRbac" = "EKSv2.2 eu-west-dev"
+"eu-staging-staging-eu-jul21-EksUserGroupRbac" = "EKSv2.2 eu-west-staging"
+"eu-prod-production-eu-jul21-EksUserGroupRbac" = "EKSv2.2 eu-west-prod"
 
 [terraform]
 disabled = true
