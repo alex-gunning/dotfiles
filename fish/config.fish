@@ -23,14 +23,16 @@ set -gx PATH $HOME/Library/Android/sdk/tools $PATH
 set -gx PATH $HOME/Library/Android/sdk/emulator $PATH
 set -gx PATH /opt/local/bin $PATH
 set -gx PATH /usr/local/spark/bin $PATH
+set -gx PATH //opt/homebrew/bin $PATH
 set -gx PATH $HOME/bin $PATH
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gitl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias sw="git checkout"
 alias p="git pull -r"
+alias docker="podman"
+alias docker-compose="podman-compose"
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
-alias vim="/usr/local/opt/vim/bin/vim"
 alias dockerecrlogin="aws --profile jumo-cicd-EngineeringReadOnlyCrossAccountRole --region eu-west-1 ecr get-login --registry-ids 576513738724 --no-include-email"
 alias console-ops-container="kubectl get pods | grep -i console-ops | awk '{print $1}'"
 function console-ops-container-exec
@@ -69,7 +71,19 @@ function revert --argument-names 'file_source'
   git checkout HEAD -- $file_source
 end
 set -g fish_user_paths "/usr/local/opt/mysql-client/bin" $fish_user_paths
-status --is-interactive; and source (rbenv init -|psub)
 
 #fish_add_path /usr/local/opt/mysql@5.6/bin
+
+function create_new_space_move_window_follow_focus
+  yabai -m space --create && \
+                   set index (yabai -m query --displays --display | jq '.spaces[-1]') && \
+                   yabai -m window --space "$index" && \
+                  yabai -m space --focus "$index"
+end
+
+function create_new_space_follow_focus
+  yabai -m space --create && \
+                   set index (yabai -m query --displays --display | jq '.spaces[-1]') && \
+                   yabai -m space --focus "$index"
+end
 
