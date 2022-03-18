@@ -8,9 +8,6 @@ set -xU BUNDLE_GITHUB__COM "374aed7422d448672fc3eac79befc66c2010e268:x-oauth-bas
 set -xU REACT_EDITOR code
 alias cat="bat"
 alias diff="diff-so-fancy"
-set -xU NVM_DIR "$HOME/.nvm"
-#  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-#  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 # Set JAVA_HOME to Java 11
 set -gx JAVA_HOME /Library/Java/JavaVirtualMachines/openjdk-12.0.1.jdk/Contents/Home
 set -gx PATH $HOME/bin $PATH
@@ -25,6 +22,7 @@ set -gx PATH /opt/local/bin $PATH
 set -gx PATH /usr/local/spark/bin $PATH
 set -gx PATH //opt/homebrew/bin $PATH
 set -gx PATH $HOME/bin $PATH
+set -gx FZF_DEFAULT_COMMAND  'rg --files --follow --hidden'
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gitl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -87,3 +85,10 @@ function create_new_space_follow_focus
                    yabai -m space --focus "$index"
 end
 
+#Fundle plugins
+fundle plugin 'FabioAntunes/fish-nvm'
+fundle plugin 'edc/bass'
+
+fundle init
+
+#Startup Commands for each shell instance
