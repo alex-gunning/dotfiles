@@ -22,7 +22,7 @@ set -gx PATH /opt/local/bin $PATH
 set -gx PATH /usr/local/spark/bin $PATH
 set -gx PATH //opt/homebrew/bin $PATH
 set -gx PATH $HOME/bin $PATH
-set -gx FZF_DEFAULT_COMMAND  'rg --files --follow --hidden'
+set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
 
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gitl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -31,7 +31,7 @@ alias p="git pull -r"
 alias docker="podman"
 alias docker-compose="podman-compose"
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
-alias dockerecrlogin="aws --profile jumo-cicd-EngineeringReadOnlyCrossAccountRole --region eu-west-1 ecr get-login --registry-ids 576513738724 --no-include-email"
+alias ctags=(brew --prefix)/bin/ctags
 alias console-ops-container="kubectl get pods | grep -i console-ops | awk '{print $1}'"
 function console-ops-container-exec
    set consoleContainer (kubectl get pods | grep -i console-ops | awk '{print $1}')
@@ -45,8 +45,6 @@ function rm_aws_env
   set -e AWS_SECRET_ACCESS_KEY
   set -e AWS_SESSION_TOKEN
 end
-alias ktlint-crs='ktlint "/**/*.kt" "!clients/**/*.kt" "!.git"'
-alias ktlint-fix-crs='ktlint -F "/**/*.kt" "!clients/**/*.kt" "!.git"'
 alias podinfo="kubectl get pods --all-namespaces -o jsonpath=\"{..image}\" |\
               tr -s '[[:space:]]' '\n' |\
               sort |\
@@ -71,7 +69,6 @@ end
 set -g fish_user_paths "/usr/local/opt/mysql-client/bin" $fish_user_paths
 
 #fish_add_path /usr/local/opt/mysql@5.6/bin
-
 function create_new_space_move_window_follow_focus
   yabai -m space --create && \
                    set index (yabai -m query --displays --display | jq '.spaces[-1]') && \
