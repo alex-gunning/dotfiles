@@ -117,7 +117,7 @@ ctrl + alt + cmd - l : yabai -m window --resize top:0:40
 ctrl + alt + cmd - 0x29 : yabai -m window --resize right:-40:0
 
 # restart yabai
-ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+ctrl + alt + cmd - r : launchctl kickstart -k "gui/$UID/homebrew.mxcl.yabai"
 
 ctrl + alt + cmd - o : node ~/Projects/Personal/philips-hue-experiments/commands/turn-on.js --all
 ctrl + alt + cmd - f : node ~/Projects/Personal/philips-hue-experiments/commands/turn-off.js --all

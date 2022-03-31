@@ -18,7 +18,7 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'preservim/nerdtree'
 Plugin 'ryanoasis/vim-devicons'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+" Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Vim Javascript plugins
 Plugin 'pangloss/vim-javascript'

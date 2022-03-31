@@ -28,8 +28,8 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C
 alias gitl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias sw="git checkout"
 alias p="git pull -r"
-alias docker="podman"
-alias docker-compose="podman-compose"
+# alias docker="podman"
+# alias docker-compose="podman-compose"
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
 alias ctags=(brew --prefix)/bin/ctags
 alias console-ops-container="kubectl get pods | grep -i console-ops | awk '{print $1}'"
