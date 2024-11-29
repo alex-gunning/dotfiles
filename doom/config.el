@@ -3,14 +3,17 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 (load! "vim-overrides.el")
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+	("elpa" . "https://elpa.gnu.org/packages/")))
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 (require 'graphql-mode)
 (require 'graphql-doc)
 (require 'hcl-mode)
-(add-to-list 'auto-mode-alist '("\\.tf\\'" . hcl-mode))
-(add-to-list 'load-path "/your/path/to/dockerfile-mode/")
+(add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode))
+;; (add-to-list 'load-path "/your/path/to/dockerfile-mode/")
 (require 'dockerfile-mode)
 ;; (setq-hook! 'js-mode-hook +format-with-lsp 'prettier-js-mode)
 ;; (setq-hook! 'js-mode-hook +format-with :none)
@@ -29,8 +32,39 @@
   (setq lsp-ui-sideline-diagnostic-max-lines 10))
 (setenv "PATH" (concat (getenv "PATH") "/Users/alexl/.nvm/versions/node/v18.14.2/bin/node"))
 (setq exec-path (append exec-path '("/Users/alexl/.nvm/versions/node/v18.14.2/bin/node")))
+(setq exec-path (append exec-path '("/Users/alexl/go/bin")))
 ;; (setenv "PATH" (concat (getenv "PATH") "/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server"))
 ;; (setq exec-path (append exec-path '("/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server")))
+
+;; accept completion from copilot and fallback to company
+;; (use-package! copilot
+;;   :hook (prog-mode . copilot-mode)
+;;   :bind (:map copilot-completion-map
+;;               ("<tab>" . 'copilot-accept-completion)
+;;               ("TAB" . 'copilot-accept-completion)
+;;               ("C-TAB" . 'copilot-accept-completion-by-word)
+;;               ("C-<tab>" . 'copilot-accept-completion-by-word)
+;;               ("C-M-]" . 'copilot-next-completion)))
+;; Typescript
+;; (define-derived-mode typescriptreact-mode web-mode "TypescriptReact"
+;;   "A major mode for tsx.")
+
+;; (use-package typescript-mode
+;;   :mode (("\\.ts\\'" . typescript-mode)
+;;          ("\\.tsx\\'" . typescriptreact-mode)))
+
+;; (use-package eglot
+;;   :ensure t
+;;   :defer 3
+;;   :hook
+;;   ((js-mode
+;;     typescript-mode
+;;     typescriptreact-mode) . eglot-ensure)
+;;   :config
+;;   (cl-pushnew '((js-mode typescript-mode typescriptreact-mode) . ("typescript-language-server" "--stdio"))
+;;               eglot-server-programs
+;;               :test #'equal))
+;;
 
 
 (setq package-list '(dap-mode typescript-mode))
@@ -71,7 +105,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one)
+(setq doom-theme 'doom-acario-dark)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

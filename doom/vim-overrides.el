@@ -66,3 +66,7 @@
       "l" #'evil-window-up
       ";" #'evil-window-right)
 
+(map! :after evil
+      :map evil-normal-state-map
+      "SPC c r" #'eglot-rename
+      "SPC c a" #'eglot-code-actions)
