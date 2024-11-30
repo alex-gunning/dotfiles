@@ -110,4 +110,3 @@ set encoding=utf8
 
 """ Customize colors
 hi Pmenu ctermbg=black ctermfg=white
-
