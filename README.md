@@ -1,2 +1,3 @@
 # dotfiles
-Dotfiles for Linux
+Dotfiles for mac
+

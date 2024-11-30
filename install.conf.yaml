@@ -1,0 +1,13 @@
+- defaults:
+    link:
+      relink: true
+
+- create:
+    - ~/Projects
+    - ~/MessArounds
+
+- shell:
+  - [./bootstrap.sh]
+  - [./fish/fish-setup.sh]
+  - [./git/git-setup.sh]
+  - [./javascript/node.fish]

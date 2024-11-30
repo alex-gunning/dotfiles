@@ -1,0 +1,13 @@
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(yaml typescript-mode tree-sitter-langs tide terraform-mode terraform-doc rjsx-mode prettier pkg-info lsp-mode json-reformat json-mode js2-refactor graphql-mode graphql-doc graphql go-mode format-all exec-path-from-shell eglot eg doom-themes dockerfile-mode docker-compose-mode crdt ac-ispell @)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
