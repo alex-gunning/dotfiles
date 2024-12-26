@@ -21,6 +21,8 @@ set -gx PATH $HOME/Library/Android/sdk/emulator $PATH
 set -gx PATH /opt/local/bin $PATH
 set -gx PATH /usr/local/spark/bin $PATH
 set -gx PATH //opt/homebrew/bin $PATH
+set -gx PATH /Users/alexl/.cargo/bin $PATH
+set -gx PATH /Users/alexl/snowsql-1.3.2-darwin_x86_64/ $PATH
 set -gx PATH $HOME/bin $PATH
 set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
 
