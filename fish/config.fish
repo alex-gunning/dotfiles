@@ -9,7 +9,7 @@ set -xU REACT_EDITOR code
 alias cat="bat"
 alias diff="diff-so-fancy"
 # Set JAVA_HOME to Java 11
-set -gx JAVA_HOME /Library/Java/JavaVirtualMachines/openjdk-12.0.1.jdk/Contents/Home
+set -gx JAVA_HOME /Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/
 set -gx PATH $HOME/bin $PATH
 # set -x JAVA_HOME (/usr/libexec/java_home)
 test -d $JAVA_HOME ; and set -gx PATH $JAVA_HOME/bin $PATH
@@ -21,8 +21,9 @@ set -gx PATH $HOME/Library/Android/sdk/emulator $PATH
 set -gx PATH /opt/local/bin $PATH
 set -gx PATH /usr/local/spark/bin $PATH
 set -gx PATH //opt/homebrew/bin $PATH
-set -gx PATH /Users/alexl/.cargo/bin $PATH
-set -gx PATH /Users/alexl/snowsql-1.3.2-darwin_x86_64/ $PATH
+set -gx PATH $HOME/.cargo/bin $PATH
+set -gx PATH $HOME/snowsql-1.3.2-darwin_x86_64/ $PATH
+set -gx PATH /.emacs.d/emacs/bin $PATH
 set -gx PATH $HOME/bin $PATH
 set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
 
