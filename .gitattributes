@@ -1,0 +1,3 @@
+# git config.filter.sensitive.clean "echo 'clean clean'"
+# git config.filter.sensitive.smudge "echo 'smudge smudge'"
+testfile text eol=lf filter=sensitive
