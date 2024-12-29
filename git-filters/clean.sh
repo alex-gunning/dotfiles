@@ -7,4 +7,4 @@ fi
 
 echo "Encrypting $1" 1>&2
 
-openssl enc -aes-256-cbc -pass pass:$DOTFILES_ENCRYPTION_KEY -pbkdf2 -iter 310000 -md sha256 -salt | base64
+openssl enc -aes-256-cbc -pass pass:$DOTFILES_ENCRYPTION_KEY -pbkdf2 -iter 310000 -md sha256 -salt

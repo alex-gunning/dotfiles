@@ -1,4 +1,4 @@
 testfile.txt eol=lf filter=sensitive
 logseq/** eol=lf filter=sensitive
 leetcode/leetcode.toml eol=lf filter=sensitive
-fish_history/fish_history eol=lf filter=sensitive
+fish_history/fish_history filter=sensitive
