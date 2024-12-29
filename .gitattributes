@@ -1,1 +1,1 @@
-testfile.txt text eol=lf filter=sensitive
+testfile.txt eol=lf filter=sensitive
