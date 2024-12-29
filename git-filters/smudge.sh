@@ -5,5 +5,5 @@ if [[ -z "$DOTFILES_ENCRYPTION_KEY" ]]; then
     exit 1
 fi
 
-echo "Smudging file for pull" 1>&2
+echo "Decrypting $1" 1>&2
 base64 --decode | openssl enc -d --aes-256-cbc -pbkdf2 -iter 310000 -md sha256 -salt -pass pass:$DOTFILES_ENCRYPTION_KEY
