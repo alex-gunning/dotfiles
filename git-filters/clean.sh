@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
-echo "Cleaning for upload" 1>&2
+if [[ -z "$DOTFILES_ENCRYPTION_KEY" ]]; then
+    echo "WARNING! Must provide DOTFILES_ENCRYPTION_KEY in environment. File will not be encrypted." 1>&2
+    exit 1
+fi
 
-openssl enc -aes-256-cbc -pass pass:alex -pbkdf2 -iter 310000 -md sha256 -salt
+echo "Encrypting a file for upload" 1>&2
+
+openssl enc -aes-256-cbc -pass pass:$DOTFILES_ENCRYPTION_KEY -pbkdf2 -iter 310000 -md sha256 -salt | base64
