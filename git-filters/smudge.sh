@@ -6,4 +6,4 @@ if [[ -z "$DOTFILES_ENCRYPTION_KEY" ]]; then
 fi
 
 echo "Decrypting $1" 1>&2
-openssl enc -d --aes-256-cbc -pbkdf2 -iter 310000 -md sha256 -salt -pass pass:$DOTFILES_ENCRYPTION_KEY
+base64 --decode | openssl enc -d --aes-256-cbc -pbkdf2 -iter 310000 -md sha256 -salt -pass pass:$DOTFILES_ENCRYPTION_KEY
