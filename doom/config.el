@@ -3,9 +3,14 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 (load! "vim-overrides.el")
-(setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-	("elpa" . "https://elpa.gnu.org/packages/")))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("stable" . "https://stable.melpa.org/packages/")
+                         ("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+(customize-set-variable 'package-archive-priorities '(("gnu"    . 99)
+                                                      ("nongnu" . 80)
+                                                      ("stable" . 70)
+                                                      ("melpa"  . 0)))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 ;(require 'yaml-mode)
@@ -13,11 +18,13 @@
 (require 'graphql-doc)
 (require 'hcl-mode)
 (require 'nerd-icons)
+(require 'git-modes)
 (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode))
 (add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-mode))
 ;; (add-to-list 'load-path "/your/path/to/dockerfile-mode/")
 (require 'dockerfile-mode)
 (setq confirm-kill-emacs nil)
+
 ;; (setq-hook! 'js-mode-hook +format-with-lsp 'prettier-js-mode)
 ;; (setq-hook! 'js-mode-hook +format-with :none)
 ;; (add-hook 'js-mode-hook 'prettier-js-mode)
@@ -36,6 +43,11 @@
 (setenv "PATH" (concat (getenv "PATH") "/Users/alexl/.nvm/versions/node/v18.14.2/bin/node"))
 (setq exec-path (append exec-path '("/Users/alexl/.nvm/versions/node/v18.14.2/bin/node")))
 (setq exec-path (append exec-path '("/Users/alexl/go/bin")))
+
+;; LSP Configs
+(setq lsp-semantic-tokens-enable t)
+(setq lsp-semantic-tokens-honor-refresh-requests t)
+(setq lsp-enable-links t)
 ;; (setenv "PATH" (concat (getenv "PATH") "/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server"))
 ;; (setq exec-path (append exec-path '("/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server")))
 

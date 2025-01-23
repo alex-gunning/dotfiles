@@ -14,9 +14,17 @@ if ! [ -x "$(command -v brew)" ]; then
   yes | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   echo "Homebrew installed"
 else
-  echo "Homebrew has already been installed"
+  echo "Homebrew has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v jq)" ]; then
   yes | brew install jq
+else
+  echo "jq has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v maccy)" ]; then
+  yes | brew install maccy
+else
+  echo "maccy has already been installed. Skipping."
 fi

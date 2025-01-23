@@ -24,6 +24,7 @@ set -gx PATH //opt/homebrew/bin $PATH
 set -gx PATH $HOME/.cargo/bin $PATH
 set -gx PATH $HOME/snowsql-1.3.2-darwin_x86_64/ $PATH
 set -gx PATH /.emacs.d/emacs/bin $PATH
+set -gx PATH $HOME/.config/emacs/bin $PATH
 set -gx PATH $HOME/bin $PATH
 set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
 
@@ -31,6 +32,8 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C
 alias gitl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias sw="git checkout"
 alias p="git pull -r"
+alias timestamp="date -r"
+alias minictl="minikube kubectl --"
 # alias docker="podman"
 # alias docker-compose="podman-compose"
 [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish

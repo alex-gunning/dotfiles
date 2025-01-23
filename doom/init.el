@@ -18,7 +18,7 @@
 
 (doom! :input
        ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
-kotlinchinese
+       kotlinchinese
        ;;japanese
        ;;layout            ; auie,ctsrnm is the superior home row
 
@@ -99,21 +99,21 @@ kotlinchinese
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        ;;lsp               ; M-x vscode
-       magit             ; a git porcelain for Emacs
+       ;;magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
-       terraform         ; infrastructure as code
+       (terraform +lsp)         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
-       ;;tty               ; improve the terminal Emacs experience
+       tty               ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -177,7 +177,7 @@ kotlinchinese
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;web               ; the tubes
-       ;;yaml              ; JSON, but readable
+       yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 
        :email
