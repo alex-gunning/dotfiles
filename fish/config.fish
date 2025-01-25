@@ -43,6 +43,23 @@ function console-ops-container-exec
    set consoleContainer (kubectl get pods | grep -i console-ops | awk '{print $1}')
    kubectl exec -it $consoleContainer -- bash
 end 
+
+function countdown --argument-names 'numMins'
+    if not test -n "$numMins"
+        echo "countdown: 'numMins' arg should be supplied"
+    else
+        set now (date +%s)
+        set finish (math $now + $numMins)
+        while test $now -le $finish;
+            set currCountdown (math $finish - $now)
+            printf "%s\r" "$(date -u -j -f %s $currCountdown +%T)"
+            sleep 1
+            set now (date +%s)
+        end
+        afplay /System/Library/Sounds/Funk.aiff
+    end
+end
+
 function rm_aws_env
   set -e AWS_ACCESS_KEY_ID
   set -e AWS_DEFAULT_REGION
