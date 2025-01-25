@@ -44,12 +44,12 @@ function console-ops-container-exec
    kubectl exec -it $consoleContainer -- bash
 end 
 
-function countdown --argument-names 'numMins'
-    if not test -n "$numMins"
-        echo "countdown: 'numMins' arg should be supplied"
+function countdown --argument-names 'numSeconds'
+    if not test -n "$numSeconds"
+        echo "countdown: 'numSeconds' arg should be supplied"
     else
         set now (date +%s)
-        set finish (math $now + $numMins)
+        set finish (math $now + $numSeconds)
         while test $now -le $finish;
             set currCountdown (math $finish - $now)
             printf "%s\r" "$(date -u -j -f %s $currCountdown +%T)"
