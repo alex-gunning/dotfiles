@@ -70,3 +70,20 @@
       :map evil-normal-state-map
       "SPC c r" #'eglot-rename
       "SPC c a" #'eglot-code-actions)
+
+;; Treemacs Evil
+(defun treemacs-jump-5-lines-next ()
+  (interactive)
+  (treemacs-next-line 5))
+(defun treemacs-jump-5-lines-previous ()
+  (interactive)
+  (treemacs-previous-line 5))
+(after! treemacs
+  (define-key evil-treemacs-state-map (kbd "j") nil)
+  (define-key evil-treemacs-state-map (kbd "k") #'treemacs-next-line)
+  (define-key evil-treemacs-state-map (kbd "l") #'treemacs-previous-line)
+  (define-key evil-treemacs-state-map (kbd "K") #'treemacs-jump-5-lines-next)
+  (define-key evil-treemacs-state-map (kbd "L") #'treemacs-jump-5-lines-previous)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd "l") nil)
+  (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))

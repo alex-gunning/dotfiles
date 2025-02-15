@@ -2,7 +2,6 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
-(load! "vim-overrides.el")
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("stable" . "https://stable.melpa.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
@@ -19,12 +18,14 @@
 (require 'hcl-mode)
 (require 'nerd-icons)
 (require 'git-modes)
+(require 'treemacs-evil)
 (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode))
 (add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-mode))
 ;; (add-to-list 'load-path "/your/path/to/dockerfile-mode/")
 (require 'dockerfile-mode)
 (setq confirm-kill-emacs nil)
 
+(load! "vim-overrides.el")
 ;; (setq-hook! 'js-mode-hook +format-with-lsp 'prettier-js-mode)
 ;; (setq-hook! 'js-mode-hook +format-with :none)
 ;; (add-hook 'js-mode-hook 'prettier-js-mode)
