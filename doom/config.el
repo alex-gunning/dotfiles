@@ -25,6 +25,9 @@
 (require 'dockerfile-mode)
 (setq confirm-kill-emacs nil)
 
+;; Setup splashscreen
+(setq fancy-splash-image "~/splash.svg")
+
 (load! "vim-overrides.el")
 ;; (setq-hook! 'js-mode-hook +format-with-lsp 'prettier-js-mode)
 ;; (setq-hook! 'js-mode-hook +format-with :none)

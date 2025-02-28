@@ -23,8 +23,7 @@ set -gx PATH /usr/local/spark/bin $PATH
 set -gx PATH //opt/homebrew/bin $PATH
 set -gx PATH $HOME/.cargo/bin $PATH
 set -gx PATH $HOME/snowsql-1.3.2-darwin_x86_64/ $PATH
-set -gx PATH /.emacs.d/emacs/bin $PATH
-set -gx PATH $HOME/.config/emacs/bin $PATH
+set -gx PATH $HOME/.emacs.d/bin $PATH
 set -gx PATH $HOME/bin $PATH
 set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
 

@@ -29,14 +29,17 @@
       "k" #'evil-next-line
       "l" #'evil-previous-line
       ";" #'evil-next-char
-      "'" #'evil-repeat-find-char
       "K" #'jump-5-lines-next
       "L" #'jump-5-lines-previous
       "C-]" #'evil-goto-definition
       "?" #'evil-lookup
       "gd" #'evil-jump-to-tag
       "S-<right>" #'centaur-tabs-forward
-      "S-<left>" #'centaur-tabs-backward)
+      "S-<left>" #'centaur-tabs-backward
+      :desc "Magit pull" "SPC g p" #'magit-pull
+      :desc "Magit push" "SPC g P" #'magit-push
+;; Evil Snipe = Vim find
+      "'" #'evil-snipe-repeat)
 
 (map! :after evil
       :map evil-normal-state-map
@@ -71,6 +74,11 @@
       "SPC c r" #'eglot-rename
       "SPC c a" #'eglot-code-actions)
 
+;; (map! :after evil
+;;       :map evil-snipe-override-local-mode-map
+;;       ";" nil)
+(map! :after evil :map general-override-mode-map :nv ";" nil)
+
 ;; Treemacs Evil
 (defun treemacs-jump-5-lines-next ()
   (interactive)
@@ -87,3 +95,11 @@
   (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
   (evil-define-key 'treemacs treemacs-mode-map (kbd "l") nil)
   (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
+
+
+;; Magit Evil
+
+;; (map! :after magit-log-mode-map
+;;       :map magit-log-mode-map
+;;       "k" #'magit-log-mo
+;;       "SPC c a" #'eglot-code-actions)
