@@ -74,6 +74,13 @@
       "SPC c r" #'eglot-rename
       "SPC c a" #'eglot-code-actions)
 
+(use-package eglot
+  :config
+  (setq eglot-report-progress nil)
+  :bind
+  (("M-RET" . eglot-code-actions)))
+
+
 ;; (map! :after evil
 ;;       :map evil-snipe-override-local-mode-map
 ;;       ";" nil)
@@ -95,6 +102,17 @@
   (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
   (evil-define-key 'treemacs treemacs-mode-map (kbd "l") nil)
   (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
+
+;; Org Agenda Evil
+(map! :after org-agenda-mode-map
+      :map org-agenda-mode-map
+      "k" #'org-agenda-next-line
+      "l" #'org-agenda-previous-line)
+;; (after! org-agenda-mode-map
+;;   (define-key org-agenda-mode-map (kbd "h") nil)
+;;   (evil-define-key 'org-agenda-mode-map org-agenda-mode-map (kbd "k") #'org-agenda-next-line)
+;;   (evil-define-key 'org-agenda-mode-map org-agenda-mode-map (kbd "l") #'org-agenda-previous-line))
+
 
 
 ;; Magit Evil

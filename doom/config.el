@@ -12,6 +12,10 @@
                                                       ("melpa"  . 0)))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+
+(use-package exec-path-from-shell :ensure t)
+(exec-path-from-shell-initialize)
+
 ;(require 'yaml-mode)
 (require 'graphql-mode)
 (require 'graphql-doc)
@@ -24,6 +28,119 @@
 ;; (add-to-list 'load-path "/your/path/to/dockerfile-mode/")
 (require 'dockerfile-mode)
 (setq confirm-kill-emacs nil)
+
+;; Java Config
+;; Mac-only
+;;(setenv "JAVA_HOME"  "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/")
+;;(setq lsp-java-java-path "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/bin/java")
+
+
+(use-package eglot
+  :config
+  (setq eglot-report-progress nil))
+(use-package eglot-java :ensure t)
+  ;; (add-to-list
+  ;;  'eglot-server-programs
+  ;;  `((java-mode java-ts-mode) .
+  ;;    ("jdtls"
+  ;;     :initializationOptions
+  ;;     (:bundles ["/home/torstein/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.51.1/com.microsoft.java.debug.plugin-0.51.1.jar"]))))
+
+  ;; :hook
+  ;; ((python-mode . eglot-ensure))
+
+  ;; :bind
+  ;; (("<f7>" . dape-step-in)
+  ;;  ("<f8>" . dape-next)
+  ;;  ("<f9>" . dape-continue)))
+
+;;(use-package dape
+;;  :after eglot
+;;  :config
+;;  (add-to-list
+;;   'dape-configs
+;;   `(java8705
+;;     modes (java-mode java-ts-mode)
+;;     hostname "localhost"
+;;     port (lambda () (eglot-execute-command (eglot-current-server) "vscode.java.startDebugSession" nil))
+;;     :request "attach"
+;;     :hostname "localhost"
+;;     :port 8705
+;;     :type "java")))
+
+;; (use-package eglot-java :after eglot)
+;; ;;(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+
+(use-package projectile)
+(use-package flycheck)
+(use-package yasnippet :config (yas-global-mode))
+(use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
+(use-package hydra)
+(use-package company)
+(use-package lsp-ui)
+(use-package which-key :config (which-key-mode))
+(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
+(use-package helm-lsp)
+(use-package helm)
+(use-package lsp-treemacs)
+(use-package git-gutter)
+;; (lsp-log-io t)
+
+(use-package projectile
+  :ensure t
+  :init (projectile-mode +1)
+  :config
+  (define-key
+   projectile-mode-map
+   (kbd "C-c p")
+   'projectile-command-map))
+
+(add-hook 'compilation-filter-hook
+          (lambda () (ansi-color-apply-on-region (point-min) (point-max))))
+
+(use-package lsp-mode
+  :bind
+  (:map lsp-mode-map
+        (("\C-\M-b" . lsp-find-implementation)
+         ("M-RET" . lsp-execute-code-action))))
+
+(use-package dap-java
+  :ensure nil
+  :after (lsp-java)
+
+  :config
+  (global-set-key (kbd "<f7>") 'dap-step-in)
+  (global-set-key (kbd "<f8>") 'dap-next)
+  (global-set-key (kbd "<f9>") 'dap-continue))
+
+(defun my-java-mode-hook ()
+  (auto-fill-mode)
+  (flycheck-mode)
+  (git-gutter-mode)
+  (subword-mode)
+  (yas-minor-mode)
+  (set-fringe-style '(8 . 0))
+  (unless (display-graphic-p)
+    (set-face-background 'dap-ui-marker-face "color-166")
+    (set-face-attribute 'dap-ui-marker-face nil :inherit nil)
+    (set-face-background 'dap-ui-pending-breakpoint-face "blue")
+    (set-face-attribute 'dap-ui-verified-breakpoint-face nil :inherit 'dap-ui-pending-breakpoint-face))
+
+  (define-key c-mode-base-map (kbd "C-M-j") 'tkj-insert-serial-version-uuid)
+  (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)
+  (define-key c-mode-base-map (kbd "S-<f7>") 'gtags-find-tag-from-here)
+
+  ;; Fix indentation for anonymous classes
+  (c-set-offset 'substatement-open 0)
+  (if (assoc 'inexpr-class c-offsets-alist)
+      (c-set-offset 'inexpr-class 0))
+
+  ;; Indent arguments on the next line as indented body.
+  (c-set-offset 'arglist-intro '++))
+(add-hook 'java-mode-hook 'my-java-mode-hook)
 
 ;; Setup splashscreen
 (setq fancy-splash-image "~/splash.svg")
