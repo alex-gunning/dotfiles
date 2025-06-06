@@ -25,10 +25,8 @@
 (require 'treemacs-evil)
 (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode))
 (add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-mode))
-;; (add-to-list 'load-path "/your/path/to/dockerfile-mode/")
 (require 'dockerfile-mode)
 (setq confirm-kill-emacs nil)
-
 ;; Java Config
 ;; Mac-only
 ;;(setenv "JAVA_HOME"  "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/")
@@ -39,12 +37,12 @@
   :config
   (setq eglot-report-progress nil))
 (use-package eglot-java :ensure t)
-  ;; (add-to-list
-  ;;  'eglot-server-programs
-  ;;  `((java-mode java-ts-mode) .
-  ;;    ("jdtls"
-  ;;     :initializationOptions
-  ;;     (:bundles ["/home/torstein/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.51.1/com.microsoft.java.debug.plugin-0.51.1.jar"]))))
+  (add-to-list
+   'eglot-server-programs
+   `((java-mode java-ts-mode) .
+     ("jdtls"
+      :initializationOptions
+      (:bundles ["/home/torstein/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.51.1/com.microsoft.java.debug.plugin-0.51.1.jar"]))))
 
   ;; :hook
   ;; ((python-mode . eglot-ensure))
@@ -80,7 +78,7 @@
 (use-package company)
 (use-package lsp-ui)
 (use-package which-key :config (which-key-mode))
-(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+;; (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
 (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
 (use-package dap-java :ensure nil)
 (use-package helm-lsp)
@@ -89,14 +87,15 @@
 (use-package git-gutter)
 ;; (lsp-log-io t)
 
-(use-package projectile
-  :ensure t
-  :init (projectile-mode +1)
-  :config
-  (define-key
-   projectile-mode-map
-   (kbd "C-c p")
-   'projectile-command-map))
+;; (use-package projectile
+;;   :ensure t
+;;   :init (projectile-mode +1)
+;;   :config
+;;   (define-key
+;;    projectile-mode-map
+;;    (kbd "C-c p")
+;;    'projectile-command-map))
+;; (add-to-list 'load-path "/your/path/to/dockerfile-mode/")
 
 (add-hook 'compilation-filter-hook
           (lambda () (ansi-color-apply-on-region (point-min) (point-max))))
@@ -140,7 +139,17 @@
 
   ;; Indent arguments on the next line as indented body.
   (c-set-offset 'arglist-intro '++))
-(add-hook 'java-mode-hook 'my-java-mode-hook)
+;; (add-hook 'java-mode-hook 'my-java-mode-hook)
+
+;; Eglot Java Config
+(add-to-list
+  'eglot-server-programs
+  `((java-mode java-ts-mode) .
+    ("jdtls"
+    :initializationOptions
+    (:bundles ["/home/alexl/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.1/com.microsoft.java.debug.plugin-0.53.1.jar"]))))
+(use-package! eglot-java :config (add-hook 'java-mode-hook 'eglot-java-mode))
+
 
 ;; Setup splashscreen
 (setq fancy-splash-image "~/splash.svg")
@@ -169,6 +178,7 @@
 (setq lsp-semantic-tokens-enable t)
 (setq lsp-semantic-tokens-honor-refresh-requests t)
 (setq lsp-enable-links t)
+;; (use-package eldoc-box)
 ;; (setenv "PATH" (concat (getenv "PATH") "/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server"))
 ;; (setq exec-path (append exec-path '("/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server")))
 
@@ -201,8 +211,31 @@
 ;;               eglot-server-programs
 ;;               :test #'equal))
 ;;
+;; (use package envrc
+;;      :ensure t
+;;      :init
+;;      '(envrc-global-mode))
+;; (load! "./additionalpkgs/flycheck-overlay.el")
+;; (after! flycheck
+;;   (require 'flycheck-overlay))
 
-
+(setq treesit-language-source-alist
+   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (css "https://github.com/tree-sitter/tree-sitter-css")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (go "https://github.com/tree-sitter/tree-sitter-go")
+     (html "https://github.com/tree-sitter/tree-sitter-html")
+     (java "https://github.com/tree-sitter/tree-sitter-java")
+     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+     (json "https://github.com/tree-sitter/tree-sitter-json")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 (setq package-list '(dap-mode typescript-mode))
 ;; Loading tree-sitter package
 ;(require 'tree-sitter-langs)
