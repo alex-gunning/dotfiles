@@ -1,3 +1,5 @@
 testfile.txt eol=lf filter=sensitive
 logseq/** filter=sensitive
 leetcode/leetcode.toml filter=sensitive
+fish/config.fish filter=sensitive
+fish_history/fish_history filter=sensitive
