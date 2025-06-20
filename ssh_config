@@ -1,0 +1,28 @@
+Host iagl.github.com
+  User git
+  HostName github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/iagl_github
+  PreferredAuthentications publickey
+  IdentitiesOnly yes
+
+Host personal.github.com
+  User git
+  HostName github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/personal
+  PreferredAuthentications publickey
+  IdentitiesOnly yes
+
+Host test.github.com
+  User git
+  HostName github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/iagl_app
+  PreferredAuthentications publickey
+  IdentitiesOnly yes
+
+Host github.com
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/avios_ssh
+
