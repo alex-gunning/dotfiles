@@ -1,0 +1,15 @@
+font-size = 20
+keybind = cmd+right=next_tab
+keybind = cmd+left=previous_tab
+keybind = ctrl+shift+\=new_split:right
+keybind = ctrl+-=new_split:up
+keybind = cmd+shift+j=goto_split:left
+keybind = cmd+shift+k=goto_split:bottom
+keybind = cmd+shift+l=goto_split:top
+keybind = cmd+shift+;=goto_split:right
+keybind = cmd+shift+z=toggle_split_zoom
+
+keybind = ctrl+right=resize_split:right,30
+keybind = ctrl+left=resize_split:left,30
+keybind = ctrl+down=resize_split:down,30
+keybind = ctrl+up=resize_split:up,30
