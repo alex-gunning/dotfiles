@@ -33,6 +33,13 @@ else
   printNeutral "Homebrew has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v git)" ]; then
+  yes | brew install git
+  printSuccess "Git installed"
+else
+  printNeutral "Git has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v maccy)" ]; then
   yes | brew install maccy
   printSuccess "Maccy installed"
@@ -47,11 +54,42 @@ else
   printNeutral "Ghostty has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v fish)" ]; then
+  yes | brew install fish
+  mkdir -p $HOME/.config/fish
+  printSuccess "Fish shell installed"
+else
+  printNeutral "Fish shell has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v jq)" ]; then
   yes | brew install jq
   printSuccess "jq installed"
 else
   printNeutral "jq has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v tfenv)" ]; then
+  yes | brew install tfenv
+  printSuccess "tfenv installed"
+else
+  printNeutral "tfenv has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v nvm)" ]; then
+  yes | brew install nvm
+  printSuccess "nvm installed"
+else
+  printNeutral "nvm has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v fzf)" ]; then
+  yes | brew install fzf
+  mkdir -p $HOME/.config/fish/functions
+  fzf --fish > $HOME/.config/fish/functions/fzf_key_bindings.fish
+  printSuccess "fzf installed and fish configured with completions."
+else
+  printNeutral "fzf has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v vim)" ]; then
@@ -66,13 +104,6 @@ if ! [ -x "$(command -v starship)" ]; then
   printSuccess "Starship installed"
 else
   printNeutral "Starship has already been installed. Skipping."
-fi
-
-if ! [ -x "$(command -v git)" ]; then
-  yes | brew install git
-  printSuccess "Git installed"
-else
-  printNeutral "Git has already been installed. Skipping."
 fi
 
 if ! [ -d "$(pwd)/../emacs" ]; then
@@ -99,6 +130,15 @@ else
   printNeutral "Emacs sources exist. Skipping."
 fi
 
+#-----------------------
+# Install openJDK
+#-----------------------
+
+#-----------------------
+# Install jdtls
+#-----------------------
+
+
 echo "\nPerforming necessary Symlinks..."
 
 if [ -h "$HOME/localbin/emacs" ]; then
@@ -108,3 +148,24 @@ else
   ln -s $(pwd)/../emacs/src/emacs "$HOME/localbin/emacs"
   printSuccess "Emacs symlink created."
 fi
+
+if [ -h "$HOME/.config/fish/config.fish" ]; then
+  printNeutral "Fish config symlink exists. Skipping."
+else
+  mkdir -p "$HOME/.config/fish"
+  ln -s $(pwd)/fish/config.fish "$HOME/.config/fish/config.fish"
+  printSuccess "Fish config symlink created."
+fi
+
+if [ -h "$HOME/.config/starship.toml" ]; then
+  printNeutral "Starship symlink exists. Skipping."
+else
+  ln -s $(pwd)/starship/starship.toml "$HOME/.config/starship.toml"
+  printSuccess "Starship symlink created."
+fi
+
+echo "\nApplying necessary configurations..."
+
+# nvm
+# java
+# tfenv
