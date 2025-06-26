@@ -33,16 +33,16 @@
 ;;(setq lsp-java-java-path "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/bin/java")
 
 
-(use-package eglot
-  :config
-  (setq eglot-report-progress nil))
-(use-package eglot-java :ensure t)
-  (add-to-list
-   'eglot-server-programs
-   `((java-mode java-ts-mode) .
-     ("jdtls"
-      :initializationOptions
-      (:bundles ["/home/torstein/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.51.1/com.microsoft.java.debug.plugin-0.51.1.jar"]))))
+;; (use-package eglot
+;;   :config
+;;   (setq eglot-report-progress nil))
+;; (use-package eglot-java :ensure t)
+;;   (add-to-list
+;;    'eglot-server-programs
+;;    `((java-mode java-ts-mode) .
+;;      ("jdtls"
+;;       :initializationOptions
+;;       (:bundles ["/home/torstein/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.51.1/com.microsoft.java.debug.plugin-0.51.1.jar"]))))
 
   ;; :hook
   ;; ((python-mode . eglot-ensure))
