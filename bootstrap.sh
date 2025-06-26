@@ -227,6 +227,9 @@ fi
 # Symlink Intellij
 #-----------------
 
+#-----------------
+# Symlink Brave
+#-----------------
 
 echo "\nApplying necessary configurations..."
 
