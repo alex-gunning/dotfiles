@@ -19,6 +19,8 @@ else
 fi
 
 
+echo "\nInstalling cli software..."
+
 if ! [ -x "$(command -v xcode-select)" ]; then
   yes | sudo xcode-select --install
   printSuccess "xcode-select installed"
@@ -40,12 +42,6 @@ else
   printNeutral "Git has already been installed. Skipping."
 fi
 
-if ! [ -x "$(command -v maccy)" ]; then
-  yes | brew install maccy
-  printSuccess "Maccy installed"
-else
-  printNeutral "Maccy has already been installed. Skipping."
-fi
 
 if ! [ -x "$(command -v ghostty)" ]; then
   yes | brew install --cask ghostty
@@ -76,12 +72,6 @@ else
   printNeutral "tfenv has already been installed. Skipping."
 fi
 
-if ! [ -x "$(command -v nvm)" ]; then
-  yes | brew install nvm
-  printSuccess "nvm installed"
-else
-  printNeutral "nvm has already been installed. Skipping."
-fi
 
 if ! [ -x "$(command -v fzf)" ]; then
   yes | brew install fzf
@@ -130,17 +120,48 @@ else
   printNeutral "Emacs sources exist. Skipping."
 fi
 
-#-----------------------
-# Install openJDK
-#-----------------------
+if ! [ -x "$(command -v vd)" ]; then
+  yes | brew install saulpw/vd/visidata
+  printSuccess "Visidata installed"
+else
+  printNeutral "Visidata has already been installed. Skipping."
+fi
 
-#-----------------------
-# Install jdtls
-#-----------------------
+if ! [ -x "$(command -v java)" ]; then
+  yes | brew install openjdk
+  printSuccess "OpenJDK installed"
+else
+  printNeutral "OpenJDK has already been installed. Skipping."
+fi
+if ! [ -x "$(command -v jdtls)" ]; then
+  yes | brew install jdjtls
+  printSuccess "jdtls installed"
+else
+  printNeutral "jdtls has already been installed. Skipping."
+fi
 
-#-----------------------
-# Install mvn
-#-----------------------
+if ! [ -x "$(command -v mvn)" ]; then
+  yes | brew install mvn
+  printSuccess "Maven installed"
+else
+  printNeutral "Maven has already been installed. Skipping."
+fi
+
+echo "\nInstalling/updating app-based software..."
+
+yes | brew install --cask rectangle 2>/dev/null
+printSuccess "Rectangle installed"
+
+yes | brew install --cask shottr 2>/dev/null
+printSuccess "Shottr installed"
+
+yes | brew install nvm 2>/dev/null
+printSuccess "Nvm installed"
+
+yes | brew install maccy 2>/dev/null
+printSuccess "Maccy installed"
+
+printNeutral "Xnip will need to be installed through the app store."
 
 echo "\nPerforming necessary Symlinks..."
 
@@ -161,15 +182,26 @@ else
 fi
 
 if [ -h "$HOME/.config/starship.toml" ]; then
-  printNeutral "Starship symlink exists. Skipping."
+  printNeutral "starship symlink exists. skipping."
 else
   ln -s $(pwd)/starship/starship.toml "$HOME/.config/starship.toml"
   printSuccess "Starship symlink created."
 fi
 
-#-----------------
-# Symlink Vim
-#-----------------
+if [ -h "$HOME/.config/ghostty/config" ]; then
+  printNeutral "Ghostty symlink exists. skipping."
+else
+  mkdir -p "$HOME/.config/ghostty"
+  ln -s $(pwd)/ghostty/config "$HOME/.config/ghostty/config"
+  printSuccess "Ghostty symlink created."
+fi
+
+if [ -h "$HOME/.vimrc" ]; then
+  printNeutral "Vimrc symlink exists. skipping."
+else
+  ln -s $(pwd)/vim/.vimrc "$HOME/.vimrc"
+  printSuccess "Vimrc symlink created."
+fi
 
 #-----------------
 # Symlink Intellij
