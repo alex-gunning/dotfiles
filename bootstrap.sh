@@ -233,6 +233,13 @@ fi
 
 echo "\nApplying necessary configurations..."
 
+if [ $(which $SHELL) = "/opt/homebrew/bin/fish" ]; then
+  printNeutral "Fish is already the default shell. skipping."
+else
+  printSuccess "Changed default shell to fish."
+  sudo chsh -s $(which fish)
+fi
+
 mvn \
         org.apache.maven.plugins:maven-dependency-plugin:2.10:get \
         -Dartifact=com.microsoft.java:com.microsoft.java.debug.plugin:0.53.1 1> /dev/null
