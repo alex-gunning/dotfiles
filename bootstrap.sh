@@ -9,28 +9,28 @@ printNeutral() {
   printf "\xE2\x80\xA2 $1\n"
 }
 
-echo "Prompting for sudo password..."
-if sudo -v; then
-    # Keep-alive: update existing `sudo` time stamp until `bootstrap.sh` has finished
-    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-    echo "Sudo credentials updated."
-else
-    >&2 echo "Failed to obtain sudo credentials."
-fi
+# echo "Prompting for sudo password..."
+# if sudo -v; then
+#     # Keep-alive: update existing `sudo` time stamp until `bootstrap.sh` has finished
+#     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+#     printSuccess "Sudo credentials updated."
+# else
+#     >&2 echo "Failed to obtain sudo credentials."
+# fi
 
 
-if ! [ -x "$(command -v xcode-select)" ]; then
-  yes | sudo xcode-select --install
-  echo "xcode-select installed"
-else
-  echo "xcode-select has already been installed. Skipping."
-fi
+# if ! [ -x "$(command -v xcode-select)" ]; then
+#   yes | sudo xcode-select --install
+#   printSuccess "xcode-select installed"
+# else
+#   printNeutral "xcode-select has already been installed. Skipping."
+# fi
 
 if ! [ -x "$(command -v brew)" ]; then
   yes | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  echo "Homebrew installed"
+  printSuccess "Homebrew installed"
 else
-  echo "Homebrew has already been installed. Skipping."
+  printNeutral "Homebrew has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v maccy)" ]; then
@@ -96,10 +96,10 @@ if ! [ -d "$(pwd)/../emacs" ]; then
   printSuccess "Emacs compiled."
   popd
 else
-  printNeutral "Emacs Git sources exist. Skipping."
+  printNeutral "Emacs sources exist. Skipping."
 fi
 
-echo "Performing necessary Symlinks..."
+echo "\nPerforming necessary Symlinks..."
 
 if [ -h "$HOME/localbin/emacs" ]; then
   printNeutral "Emacs symlink exists. Skipping."
