@@ -82,6 +82,20 @@ else
   printNeutral "fzf has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v fd)" ]; then
+  yes | brew install fd
+  printSuccess "fd installed"
+else
+  printNeutral "fd has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v rg)" ]; then
+  yes | brew install ripgrep
+  printSuccess "Ripgrep installed"
+else
+  printNeutral "Ripgrep has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v vim)" ]; then
   yes | brew install vim
   printSuccess "Vim installed"
@@ -161,6 +175,12 @@ printSuccess "Nvm installed"
 yes | brew install maccy 2>/dev/null
 printSuccess "Maccy installed"
 
+yes | brew install 1password 2>/dev/null
+printSuccess "1Password installed"
+
+yes | brew install --cask brave-browser 2>/dev/null
+printSuccess "Brave browser installed"
+
 printNeutral "Xnip will need to be installed through the app store."
 
 echo "\nPerforming necessary Symlinks..."
@@ -207,13 +227,21 @@ fi
 # Symlink Intellij
 #-----------------
 
-#-----------------
-# Symlink Brave
-#-----------------
-
 
 echo "\nApplying necessary configurations..."
 
-# nvm
+mvn \
+        org.apache.maven.plugins:maven-dependency-plugin:2.10:get \
+        -Dartifact=com.microsoft.java:com.microsoft.java.debug.plugin:0.53.1 1> /dev/null
+printSuccess "Java debug plugin saved to .m2 cache."
+
+NODE_APPROPRIATE_VERSION="v18.14.2"
+
+printNeutral "Please run 'nvm install $NODE_APPROPRIATE_VERSION && nvm alias default $NODE_APPROPRIATE_VERSION' to set the global NodeJS version."
+# nvm install --lts 1> /dev/null
+# nvm install $NODE_APPROPRIATE_VERSION 1> /dev/null
+# nvm alias default $NODE_APPROPRIATE_VERSION 1> /dev/null
+# printSuccess "Set default nodejs version to $NODE_APPROPRIATE_VERSION and installed latest LTS in Fish"
+
 # java
 # tfenv
