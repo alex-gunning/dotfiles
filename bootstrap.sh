@@ -9,22 +9,22 @@ printNeutral() {
   printf "\xE2\x80\xA2 $1\n"
 }
 
-# echo "Prompting for sudo password..."
-# if sudo -v; then
-#     # Keep-alive: update existing `sudo` time stamp until `bootstrap.sh` has finished
-#     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-#     printSuccess "Sudo credentials updated."
-# else
-#     >&2 echo "Failed to obtain sudo credentials."
-# fi
+printNeutral "Prompting for sudo password..."
+if sudo -v; then
+    # Keep-alive: update existing `sudo` time stamp until `bootstrap.sh` has finished
+    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+    printSuccess "Sudo credentials updated."
+else
+    >&2 echo "Failed to obtain sudo credentials."
+fi
 
 
-# if ! [ -x "$(command -v xcode-select)" ]; then
-#   yes | sudo xcode-select --install
-#   printSuccess "xcode-select installed"
-# else
-#   printNeutral "xcode-select has already been installed. Skipping."
-# fi
+if ! [ -x "$(command -v xcode-select)" ]; then
+  yes | sudo xcode-select --install
+  printSuccess "xcode-select installed"
+else
+  printNeutral "xcode-select has already been installed. Skipping."
+fi
 
 if ! [ -x "$(command -v brew)" ]; then
   yes | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
