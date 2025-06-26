@@ -5,4 +5,4 @@
 
 1. Make sure `DOTFILES_ENCRYPTION_KEY` is available in the shell environment.
 2. ```git clone --config filter.sensitive.clean="./git-filters/clean.sh %f" --config filter.sensitive.smudge="./git-filters/smudge.sh %f" git@github.com:alex-gunning/dotfiles.git```
-
+3. Run `./bootstrap.sh` to bootstrap a new OSX environment.
