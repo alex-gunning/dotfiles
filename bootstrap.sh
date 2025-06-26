@@ -1,4 +1,13 @@
 #!/bin/sh
+set -eu
+
+printSuccess() {
+  printf "\xE2\x9C\x93 $1\n"
+}
+
+printNeutral() {
+  printf "\xE2\x80\xA2 $1\n"
+}
 
 echo "Prompting for sudo password..."
 if sudo -v; then
@@ -26,42 +35,76 @@ fi
 
 if ! [ -x "$(command -v maccy)" ]; then
   yes | brew install maccy
-  echo "Maccy installed"
+  printSuccess "Maccy installed"
 else
-  echo "Maccy has already been installed. Skipping."
+  printNeutral "Maccy has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v ghostty)" ]; then
   yes | brew install --cask ghostty
-  echo "Ghostty installed"
+  printSuccess "Ghostty installed"
 else
-  echo "Ghostty has already been installed. Skipping."
+  printNeutral "Ghostty has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v jq)" ]; then
   yes | brew install jq
-  echo "jq installed"
+  printSuccess "jq installed"
 else
-  echo "jq has already been installed. Skipping."
+  printNeutral "jq has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v vim)" ]; then
   yes | brew install vim
-  echo "Vim installed"
+  printSuccess "Vim installed"
 else
-  echo "Vim has already been installed. Skipping."
+  printNeutral "Vim has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v starship)" ]; then
   yes | brew install starship
-  echo "Starship installed"
+  printSuccess "Starship installed"
 else
-  echo "Starship has already been installed. Skipping."
+  printNeutral "Starship has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v git)" ]; then
   yes | brew install git
-  echo "Git installed"
+  printSuccess "Git installed"
 else
-  echo "Git has already been installed. Skipping."
+  printNeutral "Git has already been installed. Skipping."
+fi
+
+if ! [ -d "$(pwd)/../emacs" ]; then
+  git clone https://github.com/emacs-mirror/emacs.git "$(pwd)/../emacs" --depth=1
+  printSuccess "Emacs cloned. Compiling Emacs".
+
+  pushd $(pwd)/../emacs
+  ./autogen.sh
+  ./configure \
+        --with-mac \
+        --enable-locallisppath=/usr/local/share/emacs/site-lisp:/opt/homebrew/share/emacs/site-lisp \
+        --enable-mac-self-contained \
+        --with-modules \
+        --with-xwidgets \
+        --with-tree-sitter \
+        --without-lcms2 \
+        --without-webp \
+        --with-native-compilation \
+        --with-mailutils
+
+  printSuccess "Emacs compiled."
+  popd
+else
+  printNeutral "Emacs Git sources exist. Skipping."
+fi
+
+echo "Performing necessary Symlinks..."
+
+if [ -h "$HOME/localbin/emacs" ]; then
+  printNeutral "Emacs symlink exists. Skipping."
+else
+  mkdir -p "$HOME/localbin"
+  ln -s $(pwd)/../emacs/src/emacs "$HOME/localbin/emacs"
+  printSuccess "Emacs symlink created."
 fi
