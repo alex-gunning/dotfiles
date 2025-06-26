@@ -1,4 +1,4 @@
-# dotfiles
+# Dotfiles
 
 ##### Only clone using the following so that encrypted files are decrypted.
 
