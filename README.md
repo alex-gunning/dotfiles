@@ -1,6 +1,5 @@
 # dotfiles
 
-## Cloning instructions
 ##### Only clone using the following so that encrypted files are decrypted.
 
 1. Make sure `DOTFILES_ENCRYPTION_KEY` is available in the shell environment.
