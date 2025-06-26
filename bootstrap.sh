@@ -138,6 +138,9 @@ fi
 # Install jdtls
 #-----------------------
 
+#-----------------------
+# Install mvn
+#-----------------------
 
 echo "\nPerforming necessary Symlinks..."
 
