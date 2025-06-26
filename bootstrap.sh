@@ -164,6 +164,19 @@ else
   printSuccess "Starship symlink created."
 fi
 
+#-----------------
+# Symlink Vim
+#-----------------
+
+#-----------------
+# Symlink Intellij
+#-----------------
+
+#-----------------
+# Symlink Brave
+#-----------------
+
+
 echo "\nApplying necessary configurations..."
 
 # nvm
