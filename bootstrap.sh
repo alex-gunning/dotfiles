@@ -72,6 +72,19 @@ else
   printNeutral "tfenv has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v aws-vault)" ]; then
+  yes | brew install aws-vault
+  printSuccess "AWS vault installed"
+else
+  printNeutral "AWS vault has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v aws)" ]; then
+  yes | brew install awscli
+  printSuccess "AWS cli installed"
+else
+  printNeutral "AWS cli has already been installed. Skipping."
+fi
 
 if ! [ -x "$(command -v fzf)" ]; then
   yes | brew install fzf
