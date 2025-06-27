@@ -249,8 +249,8 @@ echo "\nApplying necessary configurations..."
 if [ $(which $SHELL) = "/opt/homebrew/bin/fish" ]; then
   printNeutral "Fish is already the default shell. skipping."
 else
-  printSuccess "Changed default shell to fish."
   sudo chsh -s $(which fish)
+  printSuccess "Changed default shell to fish."
 fi
 
 mvn \
