@@ -50,6 +50,13 @@ else
   printNeutral "Ghostty has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v pyenv)" ]; then
+  yes | brew install pyenv
+  printSuccess "Pyenv installed"
+else
+  printNeutral "Pyenv has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v fish)" ]; then
   yes | brew install fish
   mkdir -p $HOME/.config/fish
@@ -111,6 +118,7 @@ fi
 
 if ! [ -x "$(command -v vim)" ]; then
   yes | brew install vim
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   printSuccess "Vim installed"
 else
   printNeutral "Vim has already been installed. Skipping."
@@ -121,6 +129,48 @@ if ! [ -x "$(command -v starship)" ]; then
   printSuccess "Starship installed"
 else
   printNeutral "Starship has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v autoconf)" ]; then
+  yes | brew install autoconf
+  printSuccess "Autoconf installed"
+else
+  printNeutral "Autoconf has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v libgccjit)" ]; then
+  yes | brew update && brew install libgccjit
+  printSuccess "libgccjit installed"
+else
+  printNeutral "libgccjit has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v makeinfo)" ]; then
+  yes | brew install texinfo
+  printSuccess "Makeinfo installed"
+else
+  printNeutral "Makeinfo has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v gnutls)" ]; then
+  yes | brew install gnutls
+  printSuccess "Gnutls installed"
+else
+  printNeutral "Gnutls has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v tree-sitter)" ]; then
+  yes | brew install tree-sitter
+  printSuccess "Tree-sitter installed"
+else
+  printNeutral "Tree-sitter has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v pkgconf)" ]; then
+  yes | brew install pkgconf
+  printSuccess "pkgconfig installed"
+else
+  printNeutral "pkgconfig has already been installed. Skipping."
 fi
 
 if ! [ -d "$(pwd)/../emacs" ]; then
@@ -140,11 +190,23 @@ if ! [ -d "$(pwd)/../emacs" ]; then
         --without-webp \
         --with-native-compilation \
         --with-mailutils
+  ./make
+  ./make install
 
   printSuccess "Emacs compiled."
   popd
 else
   printNeutral "Emacs sources exist. Skipping."
+fi
+
+if ! [ -d "$HOME/.config/emacs" ]; then
+  mkdir -p "$HOME/.config/emacs"
+  git clone --depth 1 https://github.com/doomemacs/doomemacs $HOME/.config/emacs
+  ~/.config/emacs/bin/doom install
+  doom sync
+  printSuccess "Doom installed"
+else
+  printNeutral "Doom has already been installed. Skipping."
 fi
 
 if ! [ -x "$(command -v vd)" ]; then
@@ -199,11 +261,18 @@ printNeutral "Xnip will need to be installed through the app store."
 echo "\nPerforming necessary Symlinks..."
 
 if [ -h "$HOME/localbin/emacs" ]; then
-  printNeutral "Emacs symlink exists. Skipping."
+  printNeutral "Emacs binary symlink exists. Skipping."
 else
   mkdir -p "$HOME/localbin"
   ln -s $(pwd)/../emacs/src/emacs "$HOME/localbin/emacs"
-  printSuccess "Emacs symlink created."
+  printSuccess "Emacs binary symlink created."
+fi
+
+if [ -h "$HOME/.emacs.d/doom" ]; then
+  printNeutral "Doom symlink exists. skipping."
+else
+  ln -s $(pwd)/doom "$HOME/.emacs.d/doom"
+  printSuccess "Doom symlink created."
 fi
 
 if [ -h "$HOME/.config/fish/config.fish" ]; then
@@ -213,6 +282,14 @@ else
   ln -s $(pwd)/fish/config.fish "$HOME/.config/fish/config.fish"
   printSuccess "Fish config symlink created."
 fi
+
+#if [ -h "$HOME/.config/fish/fish_history" ]; then
+#  printNeutral "Fish history symlink exists. Skipping."
+#else
+  mkdir -p "$HOME/.local/share/fish"
+  ln -sf $(pwd)/fish_history/fish_history "$HOME/.local/share/fish/fish_history"
+  printSuccess "Fish history symlink (re)created."
+#fi
 
 if [ -h "$HOME/.config/starship.toml" ]; then
   printNeutral "starship symlink exists. skipping."
@@ -235,7 +312,6 @@ else
   ln -s $(pwd)/vim/.vimrc "$HOME/.vimrc"
   printSuccess "Vimrc symlink created."
 fi
-
 #-----------------
 # Symlink Intellij
 #-----------------
@@ -250,6 +326,7 @@ if [ $(which $SHELL) = "/opt/homebrew/bin/fish" ]; then
   printNeutral "Fish is already the default shell. skipping."
 else
   sudo chsh -s $(which fish)
+  chsh -s $(which fish)
   printSuccess "Changed default shell to fish."
 fi
 
@@ -265,6 +342,9 @@ printNeutral "Please run 'nvm install $NODE_APPROPRIATE_VERSION && nvm alias def
 # nvm install $NODE_APPROPRIATE_VERSION 1> /dev/null
 # nvm alias default $NODE_APPROPRIATE_VERSION 1> /dev/null
 # printSuccess "Set default nodejs version to $NODE_APPROPRIATE_VERSION and installed latest LTS in Fish"
+
+git config --global alias.st status
+printSuccess "Git status global alias set."
 
 # java
 # tfenv
