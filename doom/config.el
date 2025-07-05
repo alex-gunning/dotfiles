@@ -17,8 +17,8 @@
 (exec-path-from-shell-initialize)
 
 ;(require 'yaml-mode)
-(require 'graphql-mode)
-(require 'graphql-doc)
+;(require 'graphql-mode)
+;(require 'graphql-doc)
 (require 'hcl-mode)
 (require 'nerd-icons)
 (require 'git-modes)
@@ -81,10 +81,10 @@
 ;; (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
 (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
 (use-package dap-java :ensure nil)
-(use-package helm-lsp)
-(use-package helm)
+;;(use-package helm-lsp)
+;(use-package helm)
 (use-package lsp-treemacs)
-(use-package git-gutter)
+;;(use-package git-gutter)
 ;; (lsp-log-io t)
 
 ;; (use-package projectile
@@ -142,13 +142,13 @@
 ;; (add-hook 'java-mode-hook 'my-java-mode-hook)
 
 ;; Eglot Java Config
-(add-to-list
-  'eglot-server-programs
-  `((java-mode java-ts-mode) .
-    ("jdtls"
-    :initializationOptions
-    (:bundles ["/home/alexl/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.1/com.microsoft.java.debug.plugin-0.53.1.jar"]))))
-(use-package! eglot-java :config (add-hook 'java-mode-hook 'eglot-java-mode))
+;(add-to-list
+;  'eglot-server-programs
+;  `((java-mode java-ts-mode) .
+;    ("jdtls"
+;    :initializationOptions
+;    (:bundles ["/home/alexl/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.1/com.microsoft.java.debug.plugin-0.53.1.jar"]))))
+;(use-package! eglot-java :config (add-hook 'java-mode-hook 'eglot-java-mode))
 
 
 ;; Setup splashscreen
