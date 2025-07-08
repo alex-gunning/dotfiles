@@ -173,6 +173,20 @@ else
   printNeutral "pkgconfig has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v terraform-ls)" ]; then
+  yes | brew install hashicorp/tap/terraform-ls
+  printSuccess "Terraform language server installed"
+else
+  printNeutral "Terraform language server has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v tree)" ]; then
+  yes | brew install tree
+  printSuccess "Tree installed"
+else
+  printNeutral "Tree has already been installed. Skipping."
+fi
+
 if ! [ -d "$(pwd)/../emacs" ]; then
   git clone https://github.com/emacs-mirror/emacs.git "$(pwd)/../emacs" --depth=1
   printSuccess "Emacs cloned. Compiling Emacs".
@@ -188,7 +202,6 @@ if ! [ -d "$(pwd)/../emacs" ]; then
         --with-tree-sitter \
         --without-lcms2 \
         --without-webp \
-        --with-native-compilation \
         --with-mailutils
   ./make
   ./make install
@@ -223,7 +236,7 @@ else
   printNeutral "OpenJDK has already been installed. Skipping."
 fi
 if ! [ -x "$(command -v jdtls)" ]; then
-  yes | brew install jdjtls
+  yes | brew install jdtls
   printSuccess "jdtls installed"
 else
   printNeutral "jdtls has already been installed. Skipping."
@@ -250,11 +263,11 @@ printSuccess "Nvm installed"
 yes | brew install maccy 2>/dev/null
 printSuccess "Maccy installed"
 
-yes | brew install 1password 2>/dev/null
-printSuccess "1Password installed"
-
 yes | brew install --cask brave-browser 2>/dev/null
 printSuccess "Brave browser installed"
+
+yes | brew install --cask dbeaver-community 2>/dev/null
+printSuccess "DBeaver installed"
 
 printNeutral "Xnip will need to be installed through the app store."
 
@@ -268,12 +281,13 @@ else
   printSuccess "Emacs binary symlink created."
 fi
 
-if [ -h "$HOME/.emacs.d/doom" ]; then
-  printNeutral "Doom symlink exists. skipping."
-else
-  ln -s $(pwd)/doom "$HOME/.emacs.d/doom"
-  printSuccess "Doom symlink created."
-fi
+#if [ -h "$HOME/.emacs.d/doom" ]; then
+#  printNeutral "Doom symlink exists. skipping."
+#else
+#  mkdir $HOME/.emacs.d/doom
+#  ln -s $(pwd)/doom "$HOME/.emacs.d/doom"
+#  printSuccess "Doom symlink created."
+#fi
 
 if [ -h "$HOME/.config/fish/config.fish" ]; then
   printNeutral "Fish config symlink exists. Skipping."
