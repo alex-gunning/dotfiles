@@ -187,6 +187,27 @@ else
   printNeutral "Tree has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v bat)" ]; then
+  yes | brew install bat
+  printSuccess "Bat installed"
+else
+  printNeutral "Bat has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v jira)" ]; then
+  yes | brew install jira-cli
+  printSuccess "Jira cli installed"
+else
+  printNeutral "Jira cli has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v kitten)" ]; then
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+  printSuccess "Kitten installed"
+else
+  printNeutral "Kitten has already been installed. Skipping."
+fi
+
 if ! [ -d "$(pwd)/../emacs" ]; then
   git clone https://github.com/emacs-mirror/emacs.git "$(pwd)/../emacs" --depth=1
   printSuccess "Emacs cloned. Compiling Emacs".
