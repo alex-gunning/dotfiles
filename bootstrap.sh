@@ -310,6 +310,13 @@ fi
 #  printSuccess "Doom symlink created."
 #fi
 
+if [ -h "$HOME/localbin/fzf-preview.sh" ]; then
+  printNeutral "fzf preview script symlink exists. Skipping."
+else
+  ln -s $(pwd)/scripts/fzf-preview.sh "$HOME/localbin/fzf-preview.sh"
+  printSuccess "fzf preview script symlink created."
+fi
+
 if [ -h "$HOME/.config/fish/config.fish" ]; then
   printNeutral "Fish config symlink exists. Skipping."
 else
