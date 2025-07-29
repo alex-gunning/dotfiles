@@ -13,3 +13,4 @@ keybind = ctrl+right=resize_split:right,30
 keybind = ctrl+left=resize_split:left,30
 keybind = ctrl+down=resize_split:down,30
 keybind = ctrl+up=resize_split:up,30
+shell-integration = fish
