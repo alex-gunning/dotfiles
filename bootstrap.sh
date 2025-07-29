@@ -180,6 +180,13 @@ else
   printNeutral "Terraform language server has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v mise)" ]; then
+  yes | brew install mise
+  printSuccess "Mise installed"
+else
+  printNeutral "Mise has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v tree)" ]; then
   yes | brew install tree
   printSuccess "Tree installed"
@@ -206,6 +213,20 @@ if ! [ -x "$(command -v kitten)" ]; then
   printSuccess "Kitten installed"
 else
   printNeutral "Kitten has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v chafa)" ]; then
+  yes | brew install chafa
+  printSuccess "Chafa installed"
+else
+  printNeutral "Chafa has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v eza)" ]; then
+  yes | brew install eza
+  printSuccess "Eza ls installed"
+else
+  printNeutral "Eza ls has already been installed. Skipping."
 fi
 
 if ! [ -d "$(pwd)/../emacs" ]; then
@@ -353,6 +374,13 @@ if [ -h "$HOME/.vimrc" ]; then
 else
   ln -s $(pwd)/vim/.vimrc "$HOME/.vimrc"
   printSuccess "Vimrc symlink created."
+fi
+
+if [ -h "$HOME/Library/LaunchAgents/com.local.KeyRemapping.plist" ]; then
+  printNeutral "KeyRemap file symlink exists. skipping."
+else
+  ln -s $HOME/Public/dotfiles/keymap/com.local.KeyRemapping.plist $HOME/Library/LaunchAgents/com.local.KeyRemapping.plist
+  printSuccess "KeyRemap file symlink created."
 fi
 #-----------------
 # Symlink Intellij
