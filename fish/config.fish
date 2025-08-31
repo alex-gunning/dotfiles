@@ -34,6 +34,7 @@ set -gx PATH $HOME/.config/emacs/bin $PATH
 set -gx PATH $HOME/localbin $PATH
 set -gx PATH $HOME/bin $PATH
 set -gx PATH $HOME/.duckdb/cli/latest $PATH
+set -gx PATH $HOME/.nvm/versions/node/v18.14.2/bin/node $PATH # Only here to sync to Emacs with "doom sync"
 set -g fish_user_paths "/usr/local/opt/mysql-client/bin" $fish_user_paths
 
 set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
