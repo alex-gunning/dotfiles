@@ -4,10 +4,11 @@
 ;; sync' after modifying this file!
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("stable" . "https://stable.melpa.org/packages/")
-                         ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-(customize-set-variable 'package-archive-priorities '(("gnu"    . 99)
-                                                      ("nongnu" . 80)
+                         ;("gnu" . "https://elpa.gnu.org/packages/")
+                         ;("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+                         ))
+(customize-set-variable 'package-archive-priorities '(;("gnu"    . 99)
+                                                      ;("nongnu" . 80)
                                                       ("stable" . 70)
                                                       ("melpa"  . 0)))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
@@ -19,7 +20,7 @@
 ;(require 'yaml-mode)
 ;(require 'graphql-mode)
 ;(require 'graphql-doc)
-(require 'hcl-mode)
+;(require 'hcl-mode)
 (require 'nerd-icons)
 (require 'git-modes)
 (require 'treemacs-evil)
@@ -27,6 +28,9 @@
 (add-to-list 'auto-mode-alist '("\\.kt\\'" . kotlin-mode))
 (require 'dockerfile-mode)
 (setq confirm-kill-emacs nil)
+
+;; Forge Config
+(setq auth-sources '("~/.authinfo"))
 ;; Java Config
 ;; Mac-only
 ;;(setenv "JAVA_HOME"  "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/")
@@ -76,7 +80,7 @@
   :config (setq lsp-completion-enable-additional-text-edit nil))
 (use-package hydra)
 (use-package company)
-(use-package lsp-ui)
+;(use-package lsp-ui)
 (use-package which-key :config (which-key-mode))
 ;; (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
 (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
@@ -170,9 +174,9 @@
 ;      ";" #'evil-forward-char)
 (after! lsp-ui
   (setq lsp-ui-sideline-diagnostic-max-lines 10))
-(setenv "PATH" (concat (getenv "PATH") "/Users/alexl/.nvm/versions/node/v18.14.2/bin/node"))
-(setq exec-path (append exec-path '("/Users/alexl/.nvm/versions/node/v18.14.2/bin/node")))
-(setq exec-path (append exec-path '("/Users/alexl/go/bin")))
+(setenv "PATH" (concat (getenv "PATH") "/Users/alexander.gunning@mambu.com/.nvm/versions/node/v18.14.2/bin/node"))
+(setq exec-path (append exec-path '("/Users/alexander.gunning@mambu.com/.nvm/versions/node/v18.14.2/bin/node")))
+(setq exec-path (append exec-path '("/Users/alexander.gunning@mambu.com/go/bin")))
 
 ;; LSP Configs
 (setq lsp-semantic-tokens-enable t)
@@ -232,10 +236,12 @@
      (make "https://github.com/alemuller/tree-sitter-make")
      (markdown "https://github.com/ikatyang/tree-sitter-markdown")
      (python "https://github.com/tree-sitter/tree-sitter-python")
+     (hcl "https://github.com/tree-sitter-grammars/tree-sitter-hcl")
      (toml "https://github.com/tree-sitter/tree-sitter-toml")
      (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+(setq treesit-extra-load-path '("~/.config/emacs/.local/straight/build-30.1/tree-sitter-langs/bin"))
 (setq package-list '(dap-mode typescript-mode))
 ;; Loading tree-sitter package
 ;(require 'tree-sitter-langs)

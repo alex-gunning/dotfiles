@@ -1,1 +1,139 @@
-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
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+set -xU HOMEBREW_GITHUB_API_TOKEN xxxxxxx
+set -xU BUNDLE_GITHUB__COM "xxxxx:x-oauth-basic"
+set -xU REACT_EDITOR code
+#alias cat="bat"
+alias diff="diff-so-fancy"
+alias emacs="emacs -nw"
+# Set JAVA_HOME
+#
+# Exec JAVA_HOME=(/usr/libexec/java_home)
+#
+set -gx JAVA_HOME /opt/homebrew/Cellar/openjdk/24.0.1/libexec/openjdk.jdk/Contents/Home
+set -gx CPPFLAGS "-I//opt/homebrew/opt/openjdk/include"
+set -gx CFLAGS "-I$(brew --prefix libmps)/include"
+set -gx LDFLAGS "-L$(brew --prefix libmps)/lib"
+set -gx PATH //opt/homebrew/opt/openjdk/bin $PATH
+set -gx PATH $HOME/bin $PATH
+# set -x JAVA_HOME (/usr/libexec/java_home)
+#test -d $JAVA_HOME ; and set -gx PATH $JAVA_HOME/bin $PATH
+set -x ANDROID_HOME $HOME/Library/Android/sdk
+set -x ANDROID_SDK_ROOT $HOME/Library/Android/sdk
+set -gx PATH $HOME/Library/Android/sdk/tools $PATH
+set -gx PATH $HOME/Library/Android/sdk/emulator $PATH
+set -gx PATH /opt/local/bin $PATH
+set -gx PATH /usr/local/spark/bin $PATH
+set -gx PATH //opt/homebrew/bin $PATH
+set -gx PATH $HOME/.cargo/bin $PATH
+#set -gx PATH $HOME/snowsql-1.3.2-darwin_x86_64/ $PATH
+set -gx PATH $HOME/.emacs.d/bin $PATH
+set -gx PATH $HOME/.config/emacs/bin $PATH
+set -gx PATH $HOME/localbin $PATH
+set -gx PATH $HOME/bin $PATH
+set -gx PATH $HOME/.duckdb/cli/latest $PATH
+set -g fish_user_paths "/usr/local/opt/mysql-client/bin" $fish_user_paths
+
+set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gitl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias sw="git checkout"
+alias p="git pull -r"
+alias timestamp="date -r"
+alias minictl="minikube kubectl --"
+alias ls="eza"
+alias csv="vd"
+
+# alias docker="podman"
+# alias docker-compose="podman-compose"
+[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+alias ctags=(brew --prefix)/bin/ctags
+alias console-ops-container="kubectl get pods | grep -i console-ops | awk '{print $1}'"
+function console-ops-container-exec
+   set consoleContainer (kubectl get pods | grep -i console-ops | awk '{print $1}')
+   kubectl exec -it $consoleContainer -- bash
+end 
+function countdown --argument-names 'numSeconds'
+    if not test -n "$numSeconds"
+        echo "countdown: 'numSeconds' arg should be supplied"
+    else
+        set now (date +%s)
+        set finish (math $now + $numSeconds)
+        while test $now -le $finish;
+            set currCountdown (math $finish - $now)
+            printf "%s\r" "$(date -u -j -f %s $currCountdown +%T)"
+            sleep 1
+            set now (date +%s)
+        end
+        afplay /System/Library/Sounds/Funk.aiff
+    end
+end
+function fd-with-preview --argument-names 'REGEX'
+  fd "$REGEX" | fzf --preview 'fzf-preview.sh {}'
+end
+function weather --argument-names 'LOCATION'
+    if not test -n "$LOCATION"
+        echo "weather: 'LOCATION' arg should be supplied"
+    else
+        curl v2.wttr.in/$LOCATION
+    end
+end
+
+function rm_aws_env
+  set -e AWS_ACCESS_KEY_ID
+  set -e AWS_DEFAULT_REGION
+  set -e AWS_PROFILE
+  set -e AWS_ROLE_ARN
+  set -e AWS_SECRET_ACCESS_KEY
+  set -e AWS_SESSION_TOKEN
+end
+alias podinfo="kubectl get pods --all-namespaces -o jsonpath=\"{..image}\" |\
+              tr -s '[[:space:]]' '\n' |\
+              sort |\
+              uniq -c"
+function gitp --argument-names 'remote_name'
+    # Get current branch name
+    set branch_name (git rev-parse --abbrev-ref HEAD)
+    if count $argv > /dev/null
+        echo "Pushing to specified remote"
+        git push --set-upstream $remote_name $branch_name --no-verify
+    else
+        git push --set-upstream origin $branch_name --no-verify
+    end
+end
+complete -c gitp -f -a "(git remote -v)"
+abbr r source ~/.config/fish/config.fish
+starship init fish | source
+function revert --argument-names 'file_source'
+  git checkout HEAD -- $file_source
+end
+#fish_add_path /usr/local/opt/mysql@5.6/bin
+function create_new_space_move_window_follow_focus
+  yabai -m space --create && \
+                   set index (yabai -m query --displays --display | jq '.spaces[-1]') && \
+                   yabai -m window --space "$index" && \
+                  yabai -m space --focus "$index"
+end
+function create_new_space_follow_focus
+  yabai -m space --create && \
+                   set index (yabai -m query --displays --display | jq '.spaces[-1]') && \
+                   yabai -m space --focus "$index"
+end
+#Fundle plugins
+fundle plugin 'FabioAntunes/fish-nvm'
+fundle plugin 'edc/bass'
+fundle init
+
+#Startup Commands
+fzf --fish | source
+if type -q wally-cli
+    wally-cli completion fish | source
+end
+export FZF_DEFAULT_OPTS='--color=fg:-1,fg+:#d0d0d0,bg:-1,bg+:#262626
+    --color=hl:#5f87af,hl+:#5fd7ff,info:#afaf87,marker:#87ff00
+    --color=prompt:#87ff00,spinner:#af5fff,pointer:#5fd7ff,header:#87afaf
+    --color=border:#262626,label:#aeaeae,query:#d9d9d9
+    --preview-window="border-rounded" --prompt=">" --marker=">"
+    --separator="-" --scrollbar="│"'

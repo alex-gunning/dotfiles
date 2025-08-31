@@ -145,6 +145,13 @@ else
   printNeutral "libgccjit has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v libmps)" ]; then
+  yes | brew update && brew install libmps
+  printSuccess "libmps installed"
+else
+  printNeutral "libmps has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v makeinfo)" ]; then
   yes | brew install texinfo
   printSuccess "Makeinfo installed"
@@ -180,12 +187,12 @@ else
   printNeutral "Terraform language server has already been installed. Skipping."
 fi
 
-if ! [ -x "$(command -v mise)" ]; then
-  yes | brew install mise
-  printSuccess "Mise installed"
-else
-  printNeutral "Mise has already been installed. Skipping."
-fi
+#if ! [ -x "$(command -v mise)" ]; then
+#  yes | brew install mise
+#  printSuccess "Mise installed"
+#else
+#  printNeutral "Mise has already been installed. Skipping."
+#fi
 
 if ! [ -x "$(command -v tree)" ]; then
   yes | brew install tree
@@ -230,10 +237,11 @@ else
 fi
 
 if ! [ -d "$(pwd)/../emacs" ]; then
-  git clone https://github.com/emacs-mirror/emacs.git "$(pwd)/../emacs" --depth=1
+  git clone https://github.com/emacs-mirror/emacs.git "$(pwd)/../emacs"
   printSuccess "Emacs cloned. Compiling Emacs".
 
   pushd $(pwd)/../emacs
+  git checkout feature/igc #Compile Incremental Garbage Collection branch
   ./autogen.sh
   ./configure \
         --with-mac \
@@ -244,6 +252,7 @@ if ! [ -d "$(pwd)/../emacs" ]; then
         --with-tree-sitter \
         --without-lcms2 \
         --without-webp \
+        --with-mps=yes \
         --with-mailutils
   ./make
   ./make install
@@ -258,7 +267,9 @@ if ! [ -d "$HOME/.config/emacs" ]; then
   mkdir -p "$HOME/.config/emacs"
   git clone --depth 1 https://github.com/doomemacs/doomemacs $HOME/.config/emacs
   ~/.config/emacs/bin/doom install
+  doom env
   doom sync
+  doom env
   printSuccess "Doom installed"
 else
   printNeutral "Doom has already been installed. Skipping."
