@@ -131,6 +131,13 @@ else
   printNeutral "Starship has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v automake)" ]; then
+  yes | brew install automake
+  printSuccess "Automake installed"
+else
+  printNeutral "Automake has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v autoconf)" ]; then
   yes | brew install autoconf
   printSuccess "Autoconf installed"

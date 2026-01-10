@@ -4,18 +4,22 @@
 ;; sync' after modifying this file!
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("stable" . "https://stable.melpa.org/packages/")
-                         ;("gnu" . "https://elpa.gnu.org/packages/")
-                         ;("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-                         ))
+                         ("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+                         ;; ))
 (customize-set-variable 'package-archive-priorities '(;("gnu"    . 99)
                                                       ;("nongnu" . 80)
                                                       ("stable" . 70)
                                                       ("melpa"  . 0)))
+(package-initialize)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
 (use-package exec-path-from-shell :ensure t)
 (exec-path-from-shell-initialize)
+
+;; Uncomment to switch on emacs debugger.
+;;(setq debug-on-error t)
 
 ;(require 'yaml-mode)
 ;(require 'graphql-mode)
@@ -36,7 +40,18 @@
 ;;(setenv "JAVA_HOME"  "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/")
 ;;(setq lsp-java-java-path "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/bin/java")
 
+(defun grab-s3-bucket (url)
+  (interactive "URL for Amazon s3 bucket: ")
+  (shell-command (format "aws-vault exec prod-1 -- aws s3 cp %s -" url) (get-buffer-create url)))
 
+(defun ls-to-buffer (url)
+  (interactive "URL for Amazon s3 bucket: ")
+  (shell-command (format "ls -la %s" url) (get-buffer-create url)))
+
+;; (defun ls-curr ()
+;;   (interactive)
+;;   (with-temp-buffer
+;;     (shell-command (format "ls -la /") (get-buffer-create))))
 ;; (use-package eglot
 ;;   :config
 ;;   (setq eglot-report-progress nil))
@@ -182,6 +197,7 @@
 (setq lsp-semantic-tokens-enable t)
 (setq lsp-semantic-tokens-honor-refresh-requests t)
 (setq lsp-enable-links t)
+
 ;; (use-package eldoc-box)
 ;; (setenv "PATH" (concat (getenv "PATH") "/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server"))
 ;; (setq exec-path (append exec-path '("/Users/alexl/.nvm/versions/node/v18.14.2/bin/typescript-language-server")))
@@ -222,6 +238,61 @@
 ;; (load! "./additionalpkgs/flycheck-overlay.el")
 ;; (after! flycheck
 ;;   (require 'flycheck-overlay))
+
+(use-package aider
+  :config
+  ;; For latest claude sonnet model
+  (setq aider-args '("--model" "anthropic/claude-opus-4-5" "--no-auto-accept-architect" "--no-auto-commits")) ;; add --no-auto-commits if you don't want it
+  (setenv "ANTHROPIC_API_KEY" "")
+  ;; Or chatgpt model
+  ;; (setq aider-args '("--model" "o4-mini"))
+  ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
+  ;; Or use your personal config file
+  ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
+  ;; ;;
+  ;; Optional: Set a key binding for the transient menu
+  (global-set-key (kbd "C-c a") 'aider-transient-menu) ;; for wider screen
+  ;; or use aider-transient-menu-2cols / aider-transient-menu-1col, for narrow screen
+  (aider-magit-setup-transients) ;; add aider magit function to magit menu
+  ;; auto revert buffer
+  (global-auto-revert-mode 1)
+  (auto-revert-mode 1))
+
+;; Python Language Configs
+(setq python-shell-interpreter "/Users/alexander.gunning@mambu.com/.local/bin/python")
+;; TY (LSP) - Python language server
+(setq m/python-ty
+      '("uvx" "ty" "server"))
+
+(require 'dape)
+(add-to-list 'dape-configs
+     '(debugpy-adapter
+       modes (python-mode python-ts-mode jinja2-mode)
+       command "python"
+       command-args ["-m" "debugpy.adapter" "--host" "0.0.0.0" "--port" :autoport]
+       port :autoport
+       :type "python"
+       :request "launch"
+       :program "src/mambu_data_insights_ai_shared/run_etl_log_dive_agent.py"
+       ;; :module "flask"
+       ;; :args ["--app" "src" "run" "--no-debugger" "--no-reload"]
+       :console "integratedTerminal"
+       :showReturnValue t
+       :justMyCode nil
+       :jinja t
+       :cwd dape-cwd-fn))
+
+(use-package eglot
+  :init
+  (add-hook 'python-mode-hook 'eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs `((python-ts-mode python-mode) . , m/python-ty)))
+
+;; Jinja2 templates
+(use-package! jinja2-mode)
+(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
+
+
 
 (setq treesit-language-source-alist
    '((bash "https://github.com/tree-sitter/tree-sitter-bash")
@@ -276,6 +347,8 @@
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
+(setq doom-font (font-spec :family "JetBrains Mono" :size 12 :weight 'regular))
+
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the

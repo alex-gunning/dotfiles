@@ -36,6 +36,9 @@
       "gd" #'evil-jump-to-tag
       "S-<right>" #'centaur-tabs-forward
       "S-<left>" #'centaur-tabs-backward
+      "S-s-<left>" #'centaur-tabs-move-current-tab-to-left
+      "S-s-<right>" #'centaur-tabs-move-current-tab-to-right
+      "SPC o i" #'treemacs-select-window
       :desc "Magit pull" "SPC g p" #'magit-pull
       :desc "Magit push" "SPC g P" #'magit-push
 ;; Evil Snipe = Vim find
@@ -102,6 +105,7 @@
   (evil-define-key 'treemacs treemacs-mode-map (kbd "j") #'treemacs-COLLAPSE-action)
   (evil-define-key 'treemacs treemacs-mode-map (kbd "l") nil)
   (evil-define-key 'treemacs treemacs-mode-map (kbd ";") #'treemacs-RET-action))
+
 
 ;; Org Agenda Evil
 (map! :after org-agenda-mode-map
