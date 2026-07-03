@@ -16,6 +16,13 @@
 (package! go-mode)
 (package! eldoc-box)
 
+;; Packages formerly installed via package.el (`:ensure'/`package-initialize').
+;; Declared here so straight.el manages them instead of package.el's parallel
+;; .local/elpa tree.
+(package! exec-path-from-shell)
+(package! dape)
+(package! jinja2-mode)
+
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/radian-software/straight.el#the-recipe-format

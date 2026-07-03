@@ -2,7 +2,7 @@ font-size = 20
 keybind = cmd+right=next_tab
 keybind = cmd+left=previous_tab
 keybind = ctrl+shift+\=new_split:right
-keybind = ctrl+-=new_split:up
+keybind = ctrl+shift+-=new_split:up
 keybind = cmd+shift+j=goto_split:left
 keybind = cmd+shift+k=goto_split:bottom
 keybind = cmd+shift+l=goto_split:top

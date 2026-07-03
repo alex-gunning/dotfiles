@@ -1,7 +1,7 @@
 [kubernetes]
 symbol = "☸  "
 style = "bold italic yellow"
-disabled = false
+disabled = true
 
 [terraform]
 disabled = true
@@ -55,4 +55,3 @@ format = '[[ $symbol ($version) ](fg:#81A1C1 bg:#4C566A)]($style)'
 symbol = ""
 style = "bg:#4C566A"
 format = '[[ $symbol ($version) ](fg:#81A1C1 bg:#4C566A)]($style)'
-

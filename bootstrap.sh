@@ -243,6 +243,20 @@ else
   printNeutral "Eza ls has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command tarts)" ]; then
+  cargo install tarts
+  printSuccess "Tarts is installed"
+else
+  printNeutral "Tarts has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command tdx)" ]; then
+  brew install niklas-heer/tap/tdx
+  printSuccess "TDX is installed"
+else
+  printNeutral "TDX has already been installed. Skipping."
+fi
+
 if ! [ -d "$(pwd)/../emacs" ]; then
   git clone https://github.com/emacs-mirror/emacs.git "$(pwd)/../emacs"
   printSuccess "Emacs cloned. Compiling Emacs".

@@ -2,21 +2,17 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("stable" . "https://stable.melpa.org/packages/")
-                         ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-                         ;; ))
-(customize-set-variable 'package-archive-priorities '(;("gnu"    . 99)
-                                                      ;("nongnu" . 80)
-                                                      ("stable" . 70)
-                                                      ("melpa"  . 0)))
-(package-initialize)
+;; NOTE: Doom manages packages with straight.el, NOT package.el. Never call
+;; `package-initialize' or set `package-archives'/`package-archive-priorities'
+;; here -- doing so builds a parallel tree under .local/elpa and lets Emacs's
+;; stale built-in packages (notably `transient') shadow the versions Doom
+;; builds, which breaks Magit. Declare packages in packages.el via `package!'.
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
-(use-package exec-path-from-shell :ensure t)
-(exec-path-from-shell-initialize)
+(use-package! exec-path-from-shell
+  :demand t
+  :config (exec-path-from-shell-initialize))
 
 ;; Uncomment to switch on emacs debugger.
 ;;(setq debug-on-error t)
@@ -88,21 +84,21 @@
 ;; (use-package eglot-java :after eglot)
 ;; ;;(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
 
-(use-package projectile)
-(use-package flycheck)
-(use-package yasnippet :config (yas-global-mode))
-(use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
+(use-package! projectile)
+(use-package! flycheck)
+(use-package! yasnippet :config (yas-global-mode))
+(use-package! lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
   :config (setq lsp-completion-enable-additional-text-edit nil))
-(use-package hydra)
-(use-package company)
-;(use-package lsp-ui)
-(use-package which-key :config (which-key-mode))
-;; (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
-(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
-(use-package dap-java :ensure nil)
-;;(use-package helm-lsp)
-;(use-package helm)
-(use-package lsp-treemacs)
+(use-package! hydra)
+(use-package! company)
+;(use-package! lsp-ui)
+(use-package! which-key :config (which-key-mode))
+;; (use-package! lsp-java :config (add-hook 'java-mode-hook 'lsp))
+(use-package! dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+(use-package! dap-java)
+;;(use-package! helm-lsp)
+;(use-package! helm)
+(use-package! lsp-treemacs)
 ;;(use-package git-gutter)
 ;; (lsp-log-io t)
 
@@ -119,16 +115,14 @@
 (add-hook 'compilation-filter-hook
           (lambda () (ansi-color-apply-on-region (point-min) (point-max))))
 
-(use-package lsp-mode
+(use-package! lsp-mode
   :bind
   (:map lsp-mode-map
         (("\C-\M-b" . lsp-find-implementation)
          ("M-RET" . lsp-execute-code-action))))
 
-(use-package dap-java
-  :ensure nil
+(use-package! dap-java
   :after (lsp-java)
-
   :config
   (global-set-key (kbd "<f7>") 'dap-step-in)
   (global-set-key (kbd "<f8>") 'dap-next)
@@ -239,25 +233,6 @@
 ;; (after! flycheck
 ;;   (require 'flycheck-overlay))
 
-(use-package aider
-  :config
-  ;; For latest claude sonnet model
-  (setq aider-args '("--model" "anthropic/claude-opus-4-5" "--no-auto-accept-architect" "--no-auto-commits")) ;; add --no-auto-commits if you don't want it
-  (setenv "ANTHROPIC_API_KEY" "")
-  ;; Or chatgpt model
-  ;; (setq aider-args '("--model" "o4-mini"))
-  ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
-  ;; Or use your personal config file
-  ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
-  ;; ;;
-  ;; Optional: Set a key binding for the transient menu
-  (global-set-key (kbd "C-c a") 'aider-transient-menu) ;; for wider screen
-  ;; or use aider-transient-menu-2cols / aider-transient-menu-1col, for narrow screen
-  (aider-magit-setup-transients) ;; add aider magit function to magit menu
-  ;; auto revert buffer
-  (global-auto-revert-mode 1)
-  (auto-revert-mode 1))
-
 ;; Python Language Configs
 (setq python-shell-interpreter "/Users/alexander.gunning@mambu.com/.local/bin/python")
 ;; TY (LSP) - Python language server
@@ -266,23 +241,26 @@
 
 (require 'dape)
 (add-to-list 'dape-configs
-     '(debugpy-adapter
+     '(debugpy
        modes (python-mode python-ts-mode jinja2-mode)
        command "python"
        command-args ["-m" "debugpy.adapter" "--host" "0.0.0.0" "--port" :autoport]
        port :autoport
        :type "python"
        :request "launch"
-       :program "src/mambu_data_insights_ai_shared/run_etl_log_dive_agent.py"
+       :program dape-buffer-default
+       ;; :program "src/mambu_data_insights_ai_shared/run_etl_log_dive_agent.py"
        ;; :module "flask"
        ;; :args ["--app" "src" "run" "--no-debugger" "--no-reload"]
        :console "integratedTerminal"
        :showReturnValue t
        :justMyCode nil
+       :envFile "./.env"
+       ;; :env ["PYTHONPATH=${workspaceFolder}/mambu-data-insights-ai-shared/src:${workspaceFolder}/mambu-composable-agentic-framework/src:${workspaceFolder}/mambu-data-insights-ai/src"]
        :jinja t
        :cwd dape-cwd-fn))
 
-(use-package eglot
+(use-package! eglot
   :init
   (add-hook 'python-mode-hook 'eglot-ensure)
   :config
@@ -292,7 +270,12 @@
 (use-package! jinja2-mode)
 (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
-
+;; Terragrunt 
+;; (use-package eglot
+;;   :init
+;;   (add-hook 'hcl-mode-hook 'eglot-ensure)
+;;   :config
+;;   (add-to-list 'eglot-server-programs `((hcl-ts-mode hcl-mode) . , ("ll"))))
 
 (setq treesit-language-source-alist
    '((bash "https://github.com/tree-sitter/tree-sitter-bash")
@@ -308,12 +291,12 @@
      (markdown "https://github.com/ikatyang/tree-sitter-markdown")
      (python "https://github.com/tree-sitter/tree-sitter-python")
      (hcl "https://github.com/tree-sitter-grammars/tree-sitter-hcl")
+     (terraform "https://github.com/kgrotel/terraform-ts-mode")
      (toml "https://github.com/tree-sitter/tree-sitter-toml")
      (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-(setq treesit-extra-load-path '("~/.config/emacs/.local/straight/build-30.1/tree-sitter-langs/bin"))
-(setq package-list '(dap-mode typescript-mode))
+(setq treesit-extra-load-path '("~/.config/emacs/.local/straight/build-30.2/tree-sitter-langs/bin"))
 ;; Loading tree-sitter package
 ;(require 'tree-sitter-langs)
 ;(require 'tree-sitter)

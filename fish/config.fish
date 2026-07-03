@@ -8,18 +8,23 @@ set -xU REACT_EDITOR code
 #alias cat="bat"
 alias diff="diff-so-fancy"
 alias emacs="emacs -nw"
+function markdown
+    clear
+    tdx $argv
+    clear
+end
 # Set JAVA_HOME
 #
 # Exec JAVA_HOME=(/usr/libexec/java_home)
 #
-set -gx JAVA_HOME /opt/homebrew/Cellar/openjdk/24.0.1/libexec/openjdk.jdk/Contents/Home
+set -gx JAVA_HOME "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/"
 set -gx CPPFLAGS "-I//opt/homebrew/opt/openjdk/include"
 set -gx CFLAGS "-I$(brew --prefix libmps)/include"
 set -gx LDFLAGS "-L$(brew --prefix libmps)/lib"
 set -gx PATH //opt/homebrew/opt/openjdk/bin $PATH
 set -gx PATH $HOME/bin $PATH
 # set -x JAVA_HOME (/usr/libexec/java_home)
-#test -d $JAVA_HOME ; and set -gx PATH $JAVA_HOME/bin $PATH
+test -d $JAVA_HOME ; and set -gx PATH $JAVA_HOME/bin $PATH
 set -x ANDROID_HOME $HOME/Library/Android/sdk
 set -x ANDROID_SDK_ROOT $HOME/Library/Android/sdk
 set -gx PATH $HOME/Library/Android/sdk/tools $PATH
@@ -34,7 +39,8 @@ set -gx PATH $HOME/.config/emacs/bin $PATH
 set -gx PATH $HOME/localbin $PATH
 set -gx PATH $HOME/bin $PATH
 set -gx PATH $HOME/.duckdb/cli/latest $PATH
-set -gx PATH $HOME/.nvm/versions/node/v18.14.2/bin/node $PATH # Only here to sync to Emacs with "doom sync"
+# fish_add_path (npm get prefix -g)
+# set -gx PATH $HOME/.nvm/versions/node/v18.14.2/bin/node $PATH # Only here to sync to Emacs with "doom sync"
 set -g fish_user_paths "/usr/local/opt/mysql-client/bin" $fish_user_paths
 
 set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
@@ -46,6 +52,7 @@ alias timestamp="date -r"
 alias minictl="minikube kubectl --"
 alias ls="eza"
 alias csv="vd"
+alias coffeecrab="caffeinate -d -- tarts crab"
 
 # alias docker="podman"
 # alias docker-compose="podman-compose"
@@ -125,6 +132,7 @@ end
 #Fundle plugins
 fundle plugin 'FabioAntunes/fish-nvm'
 fundle plugin 'edc/bass'
+fundle plugin 'brgmnn/fish-docker-compose'
 fundle init
 
 #Startup Commands
@@ -132,6 +140,10 @@ fzf --fish | source
 if type -q wally-cli
     wally-cli completion fish | source
 end
+#mise activate
+
+hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}' &> /dev/null
+
 export FZF_DEFAULT_OPTS='--color=fg:-1,fg+:#d0d0d0,bg:-1,bg+:#262626
     --color=hl:#5f87af,hl+:#5fd7ff,info:#afaf87,marker:#87ff00
     --color=prompt:#87ff00,spinner:#af5fff,pointer:#5fd7ff,header:#87afaf
