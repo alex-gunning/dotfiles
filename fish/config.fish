@@ -43,16 +43,103 @@ set -gx PATH $HOME/.duckdb/cli/latest $PATH
 # set -gx PATH $HOME/.nvm/versions/node/v18.14.2/bin/node $PATH # Only here to sync to Emacs with "doom sync"
 set -g fish_user_paths "/usr/local/opt/mysql-client/bin" $fish_user_paths
 
+# Terragrunt >= 0.58 defaults to OpenTofu when both are installed; force Terraform.
+set -gx TG_TF_PATH terraform
+
+# aws-vault (ByteNess fork): store secrets in the macOS "aws-vault" keychain
+# and require Touch ID (biometrics) on every credential access (exec/login/list/remove).
+set -gx AWS_VAULT_BACKEND keychain
+set -gx AWS_VAULT_BIOMETRICS true
+
 set -gx FZF_DEFAULT_COMMAND rg --files --follow --hidden
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gitl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gitlfilehistory="git log --oneline --follow --"
 alias sw="git checkout"
 alias p="git pull -r"
 alias timestamp="date -r"
 alias minictl="minikube kubectl --"
 alias ls="eza"
+alias cd="z"
 alias csv="vd"
+alias 1password="op"
 alias coffeecrab="caffeinate -d -- tarts crab"
+alias coffeematrix="caffeinate -d -- tarts matrix"
+# Print the newest *non-expired* AWS SSO access token from the CLI cache.
+# The SSO token is org-wide: one `aws sso login` against any sso-session works
+# for every account/role you are entitled to. Fails loudly if nothing is valid.
+function awstokencurrent --description 'Print the newest non-expired AWS SSO access token'
+    set -l now (date -u +%Y-%m-%dT%H:%M:%SZ)
+    set -l token (jq -rs --arg now "$now" '
+        [ .[]
+          | select(.accessToken != null)
+          | select((.expiresAt // "") | endswith("Z"))
+          | select(.expiresAt > $now)
+        ]
+        | max_by(.expiresAt)
+        | .accessToken // empty
+    ' ~/.aws/sso/cache/*.json 2>/dev/null)
+    if test -z "$token"
+        echo "awstokencurrent: no valid SSO token; run 'aws sso login --sso-session prod-3' first" >&2
+        return 1
+    end
+    echo $token
+end
+
+# Get temporary role credentials (JSON) for an org account via SSO.
+# Usage: awsrole <account-id> <role-name>
+function awsrole --description 'Get temp role credentials for an org account via SSO'
+    if test (count $argv) -lt 2
+        echo "usage: awsrole <account-id> <role-name>" >&2
+        return 1
+    end
+    aws sso get-role-credentials \
+        --account-id $argv[1] \
+        --role-name $argv[2] \
+        --access-token (awstokencurrent) \
+        --region eu-west-1
+end
+
+# Log in to the SSO org (only if needed) and assume an account role by exporting
+# its temporary credentials into the *current* shell. In fish a function runs in
+# the calling shell, so `set -gx` here mutates your interactive session directly
+# (no eval/source of `export ...` lines needed). Clear them again with `rm_aws_env`.
+# Usage: awsassume <account-id> <role-name> [sso-session]
+function awsassume --description 'SSO login if needed, then assume an account role into this shell'
+    if test (count $argv) -lt 2
+        echo "usage: awsassume <account-id> <role-name> [sso-session]" >&2
+        return 1
+    end
+    set -l account $argv[1]
+    set -l role $argv[2]
+    set -l session $argv[3]
+    test -z "$session"; and set session prod-3
+
+    # Ensure a valid org-wide SSO token exists; log in only if not.
+    if not awstokencurrent >/dev/null 2>&1
+        aws sso login --sso-session $session; or return 1
+    end
+
+    set -l json (awsrole $account $role)
+    or return 1
+    set -l akid (echo $json | jq -r '.roleCredentials.accessKeyId')
+    set -l skey (echo $json | jq -r '.roleCredentials.secretAccessKey')
+    set -l stok (echo $json | jq -r '.roleCredentials.sessionToken')
+    if test -z "$akid" -o "$akid" = null
+        echo "awsassume: could not get credentials for $role @ $account" >&2
+        return 1
+    end
+    set -gx AWS_ACCESS_KEY_ID $akid
+    set -gx AWS_SECRET_ACCESS_KEY $skey
+    set -gx AWS_SESSION_TOKEN $stok
+
+    set -l expms (echo $json | jq -r '.roleCredentials.expiration')
+    set -l human ""
+    if test -n "$expms" -a "$expms" != null
+        set human (date -r (math -s0 "$expms/1000") "+%Y-%m-%d %H:%M:%S %Z" 2>/dev/null)
+    end
+    echo "Assumed $role @ $account (expires $human)"
+end
 
 # alias docker="podman"
 # alias docker-compose="podman-compose"
@@ -140,6 +227,7 @@ fzf --fish | source
 if type -q wally-cli
     wally-cli completion fish | source
 end
+zoxide init fish | source
 #mise activate
 
 hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}' &> /dev/null

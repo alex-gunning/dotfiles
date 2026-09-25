@@ -222,6 +222,20 @@ else
   printNeutral "Jira cli has already been installed. Skipping."
 fi
 
+if ! [ -x "$(command -v op)" ]; then
+  yes | brew install 1password-cli
+  printSuccess "1Password cli installed"
+else
+  printNeutral "1Password cli has already been installed. Skipping."
+fi
+
+if ! [ -x "$(command -v zoxide)" ]; then
+  yes | brew install zoxide
+  printSuccess "Zoxide installed"
+else
+  printNeutral "Zoxide has already been installed. Skipping."
+fi
+
 if ! [ -x "$(command -v kitten)" ]; then
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
   printSuccess "Kitten installed"
