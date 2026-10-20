@@ -270,6 +270,53 @@
 (use-package! jinja2-mode)
 (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
+;; Ghostel (libghostty terminal)
+(use-package! ghostel
+  :bind (:map ghostel-semi-char-mode-map
+         ("C-s"  . consult-line)
+         ("C-k"  . my/ghostel-send-C-k-and-kill)
+         ;; Go up/down the shell history with M-p/M-n like eshell
+         ("M-p" . (lambda () (interactive) (ghostel-send-key "p" "ctrl")))
+         ("M-n" . (lambda () (interactive) (ghostel-send-key "n" "ctrl"))))
+  :config
+  (defun my/ghostel-send-C-k-and-kill ()
+    "Send `C-k' to ghostel.
+Like normal Emacs `C-k'.  Kill to end of line and put content in kill-ring."
+    (interactive)
+    (kill-ring-save (point) (line-end-position))
+    (ghostel-send-key "k" "ctrl"))
+  (add-to-list 'ghostel-eval-cmds '("magit-status-setup-buffer" magit-status-setup-buffer)))
+
+(after! project
+  (add-to-list 'project-switch-commands '(ghostel-project "Ghostel") t)
+  (add-to-list 'project-switch-commands '(consult-ghostel-project "Ghostel buffers") t))
+
+(use-package! evil-ghostel
+  :after (ghostel evil)
+  :hook (ghostel-mode . evil-ghostel-mode)
+  :config
+  (defun my/ghostel-open-link-or-return ()
+    "Open the Ghostel link at point, otherwise do what RET normally does."
+    (interactive)
+    (if (ghostel--uri-at-pos (point))
+        (ghostel-open-link-at-point)
+      (let ((cmd (lookup-key (current-local-map) (this-command-keys-vector))))
+        (when (commandp cmd)
+          (call-interactively cmd)))))
+  (map! :map evil-ghostel-mode-map
+        :n "RET"      #'my/ghostel-open-link-or-return
+        :n "<return>" #'my/ghostel-open-link-or-return))
+
+(use-package! consult-ghostel
+  :after (consult ghostel)
+  :config (consult-ghostel-mode))
+
+(map! :leader
+      :desc "Ghostel terminals"          "M" #'consult-ghostel
+      (:prefix "p"
+       :desc "Ghostel in project"        "m" #'ghostel-project
+       :desc "Project ghostel terminals" "M" #'consult-ghostel-project))
+
 ;; Terragrunt 
 ;; (use-package eglot
 ;;   :init

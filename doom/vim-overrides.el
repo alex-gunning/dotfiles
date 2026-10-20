@@ -7,12 +7,12 @@
 (defun jump-1-lines-next ()
   (interactive)
   (evil-next-line 1))
-(defun visual-jump-5-lines-previous ()
-  (interactive)
-  (evil-previous-visual-line 5))
-(defun visual-jump-5-lines-next ()
-  (interactive)
-  (evil-next-visual-line 5))
+(evil-define-motion visual-jump-5-lines-previous (count)
+  :type line
+  (evil-previous-line (* 5 (or count 1))))
+(evil-define-motion visual-jump-5-lines-next (count)
+  :type line
+  (evil-next-line (* 5 (or count 1))))
 
 ;; nil overrides
 (map! :after evil
@@ -71,7 +71,11 @@
       "j" #'evil-window-left
       "k" #'evil-window-down
       "l" #'evil-window-up
-      ";" #'evil-window-right)
+      ";" #'evil-window-right
+      "J" #'+evil/window-move-left
+      "K" #'+evil/window-move-down
+      "L" #'+evil/window-move-up
+      ":" #'+evil/window-move-right)
 
 (map! :after evil
       :map evil-normal-state-map

@@ -228,7 +228,6 @@ if type -q wally-cli
     wally-cli completion fish | source
 end
 zoxide init fish | source
-#mise activate
 
 hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}' &> /dev/null
 
